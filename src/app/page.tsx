@@ -1,4 +1,5 @@
 import Movies from "@/components/Movies";
+import PageRouter from "@/components/PageRouter";
 import { fetchMovies } from "@/helpers/fetch-movies";
 
 export default async function Home() {
@@ -8,6 +9,7 @@ export default async function Home() {
     <div>
       <h1>CineScore</h1>
       <Movies movies={movieData} />
+      <PageRouter />
     </div>
   );
 }
