@@ -13,11 +13,11 @@ const PageRouter = ({ page }: { page: number }) => {
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem>
+        {/* <PaginationItem>
           <PaginationPrevious
             href={page > 1 ? `/movies?page=${page - 1}` : undefined}
           />
-        </PaginationItem>
+        </PaginationItem> */}
         {page >= 10 && (
           <>
             <PaginationItem>
@@ -53,11 +53,11 @@ const PageRouter = ({ page }: { page: number }) => {
             {MAX_PAGES}
           </PaginationLink>
         </PaginationItem>
-        <PaginationItem>
+        {/* <PaginationItem>
           <PaginationNext
             href={page < MAX_PAGES ? `/movies?page=${page + 1}` : undefined}
           />
-        </PaginationItem>
+        </PaginationItem> */}
       </PaginationContent>
     </Pagination>
   );
