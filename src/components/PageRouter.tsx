@@ -18,6 +18,17 @@ const PageRouter = ({ page }: { page: number }) => {
             href={page > 1 ? `/movies?page=${page - 1}` : undefined}
           />
         </PaginationItem>
+        {page >= 10 && (
+          <>
+            <PaginationItem>
+              <PaginationLink href="/movies?page=1">1</PaginationLink>
+            </PaginationItem>
+
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          </>
+        )}
         {Array.from({ length: Math.min(4, MAX_PAGES - page) }, (_, index) => (
           <PaginationItem key={page + index}>
             <PaginationLink

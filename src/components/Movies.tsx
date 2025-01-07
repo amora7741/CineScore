@@ -6,9 +6,9 @@ import { MAX_PAGES } from "@/lib/constants";
 
 const Movies = () => {
   const searchParams = useSearchParams();
-  const pageParam = searchParams.get("page") || 1;
+  const pageParam = Number(searchParams.get("page")) || 1;
 
-  const page = Math.max(1, Math.min(MAX_PAGES, Number(pageParam)));
+  const page = Math.max(1, Math.min(MAX_PAGES, pageParam));
 
   return (
     <>
