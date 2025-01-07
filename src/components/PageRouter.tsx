@@ -1,3 +1,4 @@
+import { MAX_PAGES } from "@/lib/constants";
 import {
   Pagination,
   PaginationContent,
@@ -17,22 +18,33 @@ const PageRouter = ({ page }: { page: number }) => {
             href={page > 1 ? `/movies?page=${page - 1}` : undefined}
           />
         </PaginationItem>
-        {Array.from({ length: 4 }, (_, index) => (
-          <PaginationItem key={index + 1}>
-            <PaginationLink href={`/movies?page=${index + 1}`}>
-              {index + 1}
+        {Array.from({ length: Math.min(4, MAX_PAGES - page) }, (_, index) => (
+          <PaginationItem key={page + index}>
+            <PaginationLink
+              isActive={index === 0}
+              href={`/movies?page=${page + index}`}
+            >
+              {page + index}
             </PaginationLink>
           </PaginationItem>
         ))}
+        {page < 46 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="/movies?page=50">50</PaginationLink>
+          <PaginationLink
+            isActive={page === MAX_PAGES}
+            href={`/movies?page=${MAX_PAGES}`}
+          >
+            {MAX_PAGES}
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            href={page < 50 ? `/movies?page=${page + 1}` : undefined}
+            href={page < MAX_PAGES ? `/movies?page=${page + 1}` : undefined}
           />
         </PaginationItem>
       </PaginationContent>
