@@ -14,6 +14,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
+    "framer-motion": "^11.16.1",
     "lucide-react": "^0.469.0",
     "next": "14.2.20",
     "prettier": "^3.4.2",
