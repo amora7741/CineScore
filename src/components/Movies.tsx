@@ -142,22 +142,23 @@ const Movies = ({
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto grid w-full max-w-screen-2xl grid-cols-1 items-start gap-4 md:grid-cols-5">
+      <ul className="mx-auto grid w-full max-w-screen-2xl grid-cols-2 items-start gap-2 md:grid-cols-4 lg:grid-cols-5">
         {movies.map((movie) => (
           <motion.div
             layoutId={`card-${movie.id}-${id}`}
             key={movie.id}
             onClick={() => setActive(movie)}
-            className="flex cursor-pointer flex-col rounded-xl p-4 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+            className="flex cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
           >
             <div className="flex w-full flex-col gap-4">
               <motion.div layoutId={`image-${movie.id}-${id}`}>
                 <Image
-                  width={200}
-                  height={300}
+                  priority
+                  width={325}
+                  height={485}
                   src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                   alt={movie.title || ""}
-                  className="h-96 w-full rounded-lg object-cover object-top"
+                  className="aspect-[2/3] w-full rounded-lg object-cover object-top"
                 />
               </motion.div>
               <div className="flex flex-col items-center justify-center">
