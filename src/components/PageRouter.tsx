@@ -3,7 +3,6 @@ import {
   Pagination,
   PaginationBeginning,
   PaginationContent,
-  PaginationEllipsis,
   PaginationEnd,
   PaginationItem,
   PaginationLink,
