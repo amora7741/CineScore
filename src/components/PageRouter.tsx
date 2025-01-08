@@ -1,8 +1,10 @@
 import { MAX_PAGES } from "@/lib/constants";
 import {
   Pagination,
+  PaginationBeginning,
   PaginationContent,
   PaginationEllipsis,
+  PaginationEnd,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -13,51 +15,58 @@ const PageRouter = ({ page }: { page: number }) => {
   return (
     <Pagination>
       <PaginationContent>
-        {/* <PaginationItem>
-          <PaginationPrevious
-            href={page > 1 ? `/movies?page=${page - 1}` : undefined}
+        <PaginationItem>
+          <PaginationBeginning
+            href={{
+              pathname: "/movies",
+              query: { page: 1 },
+            }}
+            className={page === 1 ? "pointer-events-none opacity-50" : ""}
           />
-        </PaginationItem> */}
-        {page >= 10 && (
-          <>
-            <PaginationItem>
-              <PaginationLink href="/movies?page=1">1</PaginationLink>
-            </PaginationItem>
+        </PaginationItem>
 
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          </>
-        )}
-        {Array.from({ length: Math.min(4, MAX_PAGES - page) }, (_, index) => (
-          <PaginationItem key={page + index}>
-            <PaginationLink
-              isActive={index === 0}
-              href={`/movies?page=${page + index}`}
-            >
-              {page + index}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
-        {page < 46 && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
+        <PaginationItem>
+          <PaginationPrevious
+            href={{
+              pathname: "/movies",
+              query: { page: page - 1 },
+            }}
+            className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+          />
+        </PaginationItem>
 
         <PaginationItem>
           <PaginationLink
-            isActive={page === MAX_PAGES}
-            href={`/movies?page=${MAX_PAGES}`}
+            isActive
+            href={{ pathname: "/movies", query: { page: page } }}
           >
-            {MAX_PAGES}
+            {page}
           </PaginationLink>
         </PaginationItem>
-        {/* <PaginationItem>
+
+        <PaginationItem>
           <PaginationNext
-            href={page < MAX_PAGES ? `/movies?page=${page + 1}` : undefined}
+            href={{
+              pathname: "/movies",
+              query: { page: page + 1 },
+            }}
+            className={
+              page >= MAX_PAGES ? "pointer-events-none opacity-50" : ""
+            }
           />
-        </PaginationItem> */}
+        </PaginationItem>
+
+        <PaginationItem>
+          <PaginationEnd
+            href={{
+              pathname: "/movies",
+              query: { page: MAX_PAGES },
+            }}
+            className={
+              page === MAX_PAGES ? "pointer-events-none opacity-50" : ""
+            }
+          />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );
