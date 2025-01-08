@@ -13,11 +13,10 @@ const MoviesPage = () => {
   );
 
   return (
-    <div className="relative grid grid-rows-[auto_1fr_auto] gap-4 py-4">
-      <h1>Movies</h1>
+    <main className="relative grid grid-rows-[1fr_auto] gap-4 p-4">
       <Movies page={page} />
       <PageRouter page={page} />
-    </div>
+    </main>
   );
 };
 
