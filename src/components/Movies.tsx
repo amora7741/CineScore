@@ -1,6 +1,6 @@
 "use client";
 
-import { LoaderCircle, X } from "lucide-react";
+import { LoaderCircle, Star, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
@@ -142,15 +142,15 @@ const Movies = ({
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto grid w-full max-w-screen-2xl grid-cols-2 items-start gap-2 md:grid-cols-4 lg:grid-cols-5">
+      <ul className="mx-auto grid w-full max-w-screen-2xl grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-4 lg:grid-cols-5">
         {movies.map((movie) => (
-          <motion.div
+          <motion.button
             layoutId={`card-${movie.id}-${id}`}
             key={movie.id}
             onClick={() => setActive(movie)}
             className="flex cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
           >
-            <div className="flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-2">
               <motion.div layoutId={`image-${movie.id}-${id}`}>
                 <Image
                   priority
@@ -161,16 +161,30 @@ const Movies = ({
                   className="aspect-[2/3] w-full rounded-lg object-cover object-top"
                 />
               </motion.div>
-              <div className="flex flex-col items-center justify-center">
+              <div className="flex flex-col">
                 <motion.h3
                   layoutId={`title-${movie.id}-${id}`}
-                  className="text-center text-base font-medium text-neutral-800 dark:text-neutral-200 md:text-left"
+                  className="line-clamp-1 text-center text-base font-medium text-neutral-800 dark:text-neutral-200 md:text-left"
                 >
-                  {movie.title}
+                  {movie.title || "No title found."}
                 </motion.h3>
+                <div className="flex items-center gap-1">
+                  <Star className="size-4" fill="black" />
+                  <span>{movie.vote_average?.toFixed(1) || "--"}</span>
+                  <span>({movie.vote_count || "-"})</span>
+                </div>
+                <p className="w-fit">
+                  {movie.release_date
+                    ? new Date(movie.release_date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : "No release date."}
+                </p>
               </div>
             </div>
-          </motion.div>
+          </motion.button>
         ))}
       </ul>
     </>

@@ -24,7 +24,7 @@ const MoviesContent = () => {
   );
 
   return (
-    <main className="relative grid grid-rows-[1fr_auto] gap-4 p-4">
+    <main className="relative grid grid-rows-[1fr_auto] gap-8 p-4 py-8">
       <Movies movies={movies} isLoading={isLoading} />
       <PageRouter page={page} />
     </main>
