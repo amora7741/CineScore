@@ -12,7 +12,7 @@ import {
 
 const PageRouter = ({ page }: { page: number }) => {
   return (
-    <Pagination>
+    <Pagination className="-ml-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationBeginning

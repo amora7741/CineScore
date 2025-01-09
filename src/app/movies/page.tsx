@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
+import SearchBar from "@/components/SearchBar";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -24,7 +25,8 @@ const MoviesContent = () => {
   );
 
   return (
-    <main className="relative grid grid-rows-[1fr_auto] gap-8 p-4 py-8">
+    <main className="relative grid grid-rows-[auto_1fr_auto] gap-8 p-4 py-8">
+      <SearchBar />
       <Movies movies={movies} isLoading={isLoading} />
       <PageRouter page={page} />
     </main>
