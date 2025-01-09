@@ -164,7 +164,7 @@ const Movies = ({
               <div className="flex flex-col">
                 <motion.h3
                   layoutId={`title-${movie.id}-${id}`}
-                  className="line-clamp-1 text-center text-base font-medium text-neutral-800 dark:text-neutral-200 md:text-left"
+                  className="line-clamp-1 text-left text-lg font-medium text-neutral-800 dark:text-neutral-200"
                 >
                   {movie.title || "No title found."}
                 </motion.h3>
