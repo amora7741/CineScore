@@ -61,7 +61,7 @@ const Movies = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-10 size-full bg-black/20"
+            className="fixed inset-0 z-10 size-full bg-black/70"
           />
         )}
       </AnimatePresence>
@@ -77,7 +77,7 @@ const Movies = ({
                 opacity: 0,
                 transition: { duration: 0.05 },
               }}
-              className="absolute right-2 top-2 flex size-16 items-center justify-center rounded-full bg-white text-white lg:hidden"
+              className="absolute right-2 top-2 flex size-16 items-center justify-center rounded-full bg-white lg:hidden"
               onClick={() => setActive(null)}
             >
               <X />
@@ -86,7 +86,7 @@ const Movies = ({
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white dark:bg-neutral-900 sm:rounded-3xl md:h-fit md:max-h-[90%]"
+              className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white dark:bg-neutral-900 sm:rounded-xl md:h-fit md:max-h-[90%]"
             >
               <motion.div layoutId={`image-${active.id}-${id}`}>
                 <Image
@@ -131,7 +131,7 @@ const Movies = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-xs text-neutral-600 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] dark:text-neutral-400 md:h-fit md:text-sm lg:text-base"
+                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-xs text-neutral-600 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] dark:text-neutral-400 md:h-fit md:text-sm lg:text-base"
                   >
                     {active.overview}
                   </motion.div>
