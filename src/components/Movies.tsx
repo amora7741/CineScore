@@ -61,7 +61,7 @@ const Movies = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-10 size-full bg-black/70"
+            className="fixed inset-0 z-50 size-full bg-black/70"
           />
         )}
       </AnimatePresence>
@@ -173,7 +173,7 @@ const Movies = ({
                   <span>{movie.vote_average?.toFixed(1) || "--"}</span>
                   <span>({movie.vote_count || "-"})</span>
                 </div>
-                <p className="w-fit">
+                <p className="text-left">
                   {movie.release_date
                     ? new Date(movie.release_date).toLocaleDateString("en-US", {
                         month: "short",
