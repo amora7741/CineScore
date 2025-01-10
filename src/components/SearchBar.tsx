@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 const SearchBar = () => {
   const router = useRouter();
   const [movieQuery, setMovieQuery] = useState<string>("");
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,10 +20,12 @@ const SearchBar = () => {
 
     const encodedQuery = encodeURIComponent(movieQuery.trim());
     router.push(`/search?q=${encodedQuery}`);
+
+    setOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost">
           <Search className="!size-5 stroke-[3]" />
