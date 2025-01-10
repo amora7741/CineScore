@@ -3,13 +3,11 @@
 import Movies from "@/components/Movies";
 import PageRouter from "@/components/PageRouter";
 import { MAX_PAGES } from "@/lib/constants";
-import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
-
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+import { fetcher } from "@/helpers/swr-fetcher";
 
 const MoviesContent = () => {
   const searchParams = useSearchParams();
