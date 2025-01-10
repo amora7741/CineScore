@@ -61,7 +61,7 @@ const Movies = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 size-full bg-black/70"
+            className="fixed inset-0 z-50 size-full bg-white/80 backdrop-blur-lg"
           />
         )}
       </AnimatePresence>
@@ -86,7 +86,7 @@ const Movies = ({
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white dark:bg-neutral-900 sm:rounded-xl md:h-fit md:max-h-[90%]"
+              className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white shadow-lg dark:bg-neutral-900 sm:rounded-xl md:h-fit md:max-h-[90%]"
             >
               <motion.div layoutId={`image-${active.id}-${id}`}>
                 <Image
