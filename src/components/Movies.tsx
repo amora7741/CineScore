@@ -53,6 +53,14 @@ const Movies = ({
     );
   }
 
+  if (movies.length === 0) {
+    return (
+      <p className="self-center justify-self-center text-center text-xl font-bold sm:text-3xl">
+        No results found!
+      </p>
+    );
+  }
+
   return (
     <>
       <AnimatePresence>
@@ -148,7 +156,7 @@ const Movies = ({
             layoutId={`card-${movie.id}-${id}`}
             key={movie.id}
             onClick={() => setActive(movie)}
-            className="flex cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+            className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
           >
             <div className="flex w-full flex-col gap-2">
               <motion.div layoutId={`image-${movie.id}-${id}`}>
