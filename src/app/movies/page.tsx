@@ -16,19 +16,14 @@ const MoviePageContent = () => {
     Math.min(MAX_PAGES, Number(searchParams.get("page")) || 1),
   );
 
-  const {
-    data: movies,
-    isLoading,
-    isValidating,
-  } = useSWR<Movie[]>(`/api/movies?page=${page}`, fetcher);
+  const { data: movies, isLoading } = useSWR<Movie[]>(
+    `/api/movies?page=${page}`,
+    fetcher,
+  );
 
   return (
     <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[1fr_auto] gap-8 p-8">
-      <Movies
-        movies={movies}
-        isLoading={isLoading}
-        isValidating={isValidating}
-      />
+      <Movies movies={movies} isLoading={isLoading} />
       <PageRouter page={page} />
     </main>
   );

@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
+import Movies from "@/components/Movies";
 
 const SearchPageContent = () => {
   const searchParams = useSearchParams();
@@ -22,10 +23,11 @@ const SearchPageContent = () => {
   console.log(movieData?.results);
 
   return (
-    <main className="relative grid grid-rows-[auto_1fr_auto] gap-8 p-8">
-      <p className="line-clamp-1 text-xl">
-        Search results for: <span className="font-bold">{movieQuery}</span>
+    <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[auto_1fr_auto] gap-8 p-8">
+      <p className="line-clamp-1 px-2 text-2xl">
+        Search results for <span className="font-bold">{movieQuery}</span>
       </p>
+      <Movies movies={movieData?.results} isLoading={isLoading} />
     </main>
   );
 };

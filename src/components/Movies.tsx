@@ -10,11 +10,9 @@ import Image from "next/image";
 const Movies = ({
   movies,
   isLoading,
-  isValidating,
 }: {
   movies: Movie[] | undefined;
   isLoading: boolean;
-  isValidating: boolean;
 }) => {
   const [active, setActive] = useState<Movie | boolean | null>(null);
   const id = useId();
@@ -39,7 +37,7 @@ const Movies = ({
 
   useOutsideClick(ref, () => setActive(null));
 
-  if (isLoading || isValidating) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center">
         <LoaderCircle className="size-16 animate-spin" />
@@ -173,7 +171,7 @@ const Movies = ({
                 <div className="flex items-center gap-1">
                   <Star className="size-4" fill="black" />
                   <span>{movie.vote_average?.toFixed(1) || "--"}</span>
-                  <span>({movie.vote_count || "-"})</span>
+                  <span>({movie.vote_count})</span>
                 </div>
                 <p className="text-left">
                   {movie.release_date
