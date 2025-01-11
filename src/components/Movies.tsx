@@ -10,9 +10,11 @@ import Image from "next/image";
 const Movies = ({
   movies,
   isLoading,
+  isValidating,
 }: {
   movies: Movie[] | undefined;
   isLoading: boolean;
+  isValidating: boolean;
 }) => {
   const [active, setActive] = useState<Movie | boolean | null>(null);
   const id = useId();
@@ -37,7 +39,7 @@ const Movies = ({
 
   useOutsideClick(ref, () => setActive(null));
 
-  if (isLoading) {
+  if (isLoading || isValidating) {
     return (
       <div className="flex items-center justify-center">
         <LoaderCircle className="size-16 animate-spin" />
@@ -142,7 +144,7 @@ const Movies = ({
         ) : null}
       </AnimatePresence>
 
-      <ul className="mx-auto grid w-full max-w-screen-2xl grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-4 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-4 lg:grid-cols-5">
         {movies.map((movie) => (
           <motion.button
             layoutId={`card-${movie.id}-${id}`}
