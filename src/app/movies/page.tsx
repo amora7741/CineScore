@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
 
-const MoviesContent = () => {
+const MoviePageContent = () => {
   const searchParams = useSearchParams();
   const page = Math.max(
     1,
@@ -43,7 +43,7 @@ const MoviesPage = () => {
         </div>
       }
     >
-      <MoviesContent />
+      <MoviePageContent />
     </Suspense>
   );
 };
