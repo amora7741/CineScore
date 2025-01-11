@@ -24,3 +24,16 @@ export const fetchMovies = async (page: number, listType: ListType) => {
     return `Error: ${error}`;
   }
 };
+
+export const fetchMoviesByQuery = async (query: string, page: number) => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&language=en-US&page=${page}`,
+      options,
+    );
+
+    return data;
+  } catch (error) {
+    return `Error: ${error}`;
+  }
+};

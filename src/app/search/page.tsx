@@ -12,6 +12,15 @@ const SearchPageContent = () => {
 
   const movieQuery = decodeURIComponent(searchParams.get("q")!);
 
+  const page = Math.max(1, Number(searchParams.get("page")) || 1);
+
+  const { data: movieData, isLoading } = useSWR<SearchMovie>(
+    `/api/movies/search?query=${movieQuery}&page=${page}`,
+    fetcher,
+  );
+
+  console.log(movieData?.results);
+
   return (
     <main className="relative grid grid-rows-[auto_1fr_auto] gap-8 p-8">
       <p className="line-clamp-1 text-xl">
