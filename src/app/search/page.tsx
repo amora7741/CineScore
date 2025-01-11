@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
 import Movies from "@/components/Movies";
+import PageRouter from "@/components/PageRouter";
 
 const SearchPageContent = () => {
   const searchParams = useSearchParams();
@@ -27,7 +28,10 @@ const SearchPageContent = () => {
       <p className="line-clamp-1 px-2 text-2xl">
         Search results for <span className="font-bold">{movieQuery}</span>
       </p>
+
       <Movies movies={movieData?.results} isLoading={isLoading} />
+
+      <PageRouter page={page} />
     </main>
   );
 };

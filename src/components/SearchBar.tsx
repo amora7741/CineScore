@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -34,10 +35,17 @@ const SearchBar = () => {
 
       <DialogContent className="left-0 top-0 max-w-full translate-x-0 translate-y-0 border-none bg-transparent">
         <div className="mx-auto my-28 w-full max-w-screen-xl">
-          <form onSubmit={handleSubmit}>
+          <form className="flex flex-col" onSubmit={handleSubmit}>
+            <Label
+              className={`px-4 text-xl text-muted-foreground ${movieQuery ? "flex" : "invisible"}`}
+              htmlFor="query"
+            >
+              Search for a movie...
+            </Label>
             <div className="relative">
               <Input
                 type="search"
+                id="query"
                 value={movieQuery}
                 onChange={(e) => setMovieQuery(e.target.value)}
                 placeholder="Search for a movie..."
