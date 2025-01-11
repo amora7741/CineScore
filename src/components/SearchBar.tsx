@@ -37,7 +37,7 @@ const SearchBar = () => {
         <div className="mx-auto my-28 w-full max-w-screen-xl">
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <Label
-              className={`px-4 text-xl text-muted-foreground ${movieQuery ? "flex" : "invisible"}`}
+              className={`px-3 text-muted-foreground sm:text-lg md:px-4 md:text-xl ${movieQuery ? "flex" : "invisible"}`}
               htmlFor="query"
             >
               Search for a movie...
