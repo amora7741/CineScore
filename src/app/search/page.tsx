@@ -12,16 +12,21 @@ import PageRouter from "@/components/PageRouter";
 const SearchPageContent = () => {
   const searchParams = useSearchParams();
 
-  const movieQuery = decodeURIComponent(searchParams.get("q")!);
-
+  const movieQuery = decodeURIComponent(searchParams.get("q") ?? "");
   const page = Math.max(1, Number(searchParams.get("page")) || 1);
 
   const { data: movieData, isLoading } = useSWR<SearchMovie>(
-    `/api/movies/search?query=${movieQuery}&page=${page}`,
+    movieQuery ? `/api/movies/search?query=${movieQuery}&page=${page}` : null,
     fetcher,
   );
 
-  console.log(movieData?.results);
+  if (!movieQuery) {
+    return (
+      <p className="self-center justify-self-center text-center text-xl font-bold sm:text-3xl">
+        No query provided!
+      </p>
+    );
+  }
 
   return (
     <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[auto_1fr_auto] gap-8 p-8">
@@ -31,7 +36,12 @@ const SearchPageContent = () => {
 
       <Movies movies={movieData?.results} isLoading={isLoading} />
 
-      <PageRouter page={page} />
+      <PageRouter
+        page={page}
+        hrefPath="/search"
+        maxPages={movieData?.total_pages || 1}
+        additionalQuery={{ q: movieQuery }}
+      />
     </main>
   );
 };

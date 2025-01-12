@@ -24,7 +24,7 @@ const MoviePageContent = () => {
   return (
     <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[1fr_auto] gap-8 p-8">
       <Movies movies={movies} isLoading={isLoading} />
-      <PageRouter page={page} />
+      <PageRouter page={page} maxPages={MAX_PAGES} hrefPath="/movies" />
     </main>
   );
 };

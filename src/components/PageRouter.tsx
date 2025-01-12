@@ -1,4 +1,3 @@
-import { MAX_PAGES } from "@/lib/constants";
 import {
   Pagination,
   PaginationBeginning,
@@ -10,34 +9,49 @@ import {
   PaginationPrevious,
 } from "./ui/pagination";
 
-const PageRouter = ({ page }: { page: number }) => {
+const PageRouter = ({
+  page,
+  hrefPath,
+  maxPages,
+  additionalQuery = {},
+}: {
+  page: number;
+  hrefPath: string;
+  maxPages: number;
+  additionalQuery?: Record<string, string>;
+}) => {
+  const getQueryParams = (pageNum: number) => ({
+    ...additionalQuery,
+    page: pageNum,
+  });
+
   return (
     <Pagination className="-ml-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationBeginning
             href={{
-              pathname: "/movies",
-              query: { page: 1 },
+              pathname: hrefPath,
+              query: getQueryParams(1),
             }}
-            className={page === 1 ? "pointer-events-none opacity-50" : ""}
+            className={page <= 1 ? "invisible" : "visible"}
           />
         </PaginationItem>
 
         <PaginationItem>
           <PaginationPrevious
             href={{
-              pathname: "/movies",
-              query: { page: page - 1 },
+              pathname: hrefPath,
+              query: getQueryParams(page - 1),
             }}
-            className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+            className={page <= 1 ? "invisible" : "visible"}
           />
         </PaginationItem>
 
         <PaginationItem>
           <PaginationLink
             isActive
-            href={{ pathname: "/movies", query: { page: page } }}
+            href={{ pathname: hrefPath, query: getQueryParams(page) }}
           >
             {page}
           </PaginationLink>
@@ -46,24 +60,20 @@ const PageRouter = ({ page }: { page: number }) => {
         <PaginationItem>
           <PaginationNext
             href={{
-              pathname: "/movies",
-              query: { page: page + 1 },
+              pathname: hrefPath,
+              query: getQueryParams(page + 1),
             }}
-            className={
-              page >= MAX_PAGES ? "pointer-events-none opacity-50" : ""
-            }
+            className={page >= maxPages ? "invisible" : "visible"}
           />
         </PaginationItem>
 
         <PaginationItem>
           <PaginationEnd
             href={{
-              pathname: "/movies",
-              query: { page: MAX_PAGES },
+              pathname: hrefPath,
+              query: getQueryParams(maxPages),
             }}
-            className={
-              page === MAX_PAGES ? "pointer-events-none opacity-50" : ""
-            }
+            className={page >= maxPages ? "invisible" : "visible"}
           />
         </PaginationItem>
       </PaginationContent>
