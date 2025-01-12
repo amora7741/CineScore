@@ -97,13 +97,21 @@ const Movies = ({
               className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white shadow-lg dark:bg-neutral-900 sm:rounded-xl md:h-fit md:max-h-[90%]"
             >
               <motion.div layoutId={`image-${active.id}-${id}`}>
-                <Image
-                  width={500}
-                  height={750}
-                  src={`https://image.tmdb.org/t/p/w500${active.poster_path}`}
-                  alt={active.title || ""}
-                  className="h-80 w-full object-cover object-top sm:rounded-t-lg lg:h-80"
-                />
+                {active.poster_path ? (
+                  <Image
+                    width={500}
+                    height={750}
+                    src={`https://image.tmdb.org/t/p/w500${active.poster_path}`}
+                    alt={active.title || ""}
+                    className="h-80 w-full object-cover object-top sm:rounded-t-lg lg:h-80"
+                  />
+                ) : (
+                  <div className="grid h-80 place-items-center bg-neutral-200 sm:rounded-t-lg">
+                    <span className="text-neutral-500 dark:text-neutral-400">
+                      No image available
+                    </span>
+                  </div>
+                )}
               </motion.div>
 
               <div>
@@ -141,7 +149,7 @@ const Movies = ({
                     exit={{ opacity: 0 }}
                     className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-xs text-neutral-600 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] dark:text-neutral-400 md:h-fit md:text-sm lg:text-base"
                   >
-                    {active.overview}
+                    {active.overview || "No description provided."}
                   </motion.div>
                 </div>
               </div>
@@ -160,14 +168,22 @@ const Movies = ({
           >
             <div className="flex w-full flex-col gap-2">
               <motion.div layoutId={`image-${movie.id}-${id}`}>
-                <Image
-                  priority
-                  width={325}
-                  height={485}
-                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                  alt={movie.title || ""}
-                  className="aspect-[2/3] w-full rounded-lg object-cover object-top"
-                />
+                {movie.poster_path ? (
+                  <Image
+                    priority
+                    width={325}
+                    height={485}
+                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={movie.title || ""}
+                    className="aspect-[2/3] w-full rounded-lg object-cover object-top"
+                  />
+                ) : (
+                  <div className="grid aspect-[2/3] place-items-center rounded-lg bg-neutral-200">
+                    <span className="text-neutral-500 dark:text-neutral-400">
+                      No image available
+                    </span>
+                  </div>
+                )}
               </motion.div>
               <div className="flex flex-col">
                 <motion.h3
