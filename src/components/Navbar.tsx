@@ -1,7 +1,7 @@
 import { Popcorn } from "lucide-react";
-import { Button } from "./ui/button";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import UserButton from "./UserButton";
 
 const Navbar = () => {
   return (
@@ -13,10 +13,7 @@ const Navbar = () => {
 
       <div className="flex items-center">
         <SearchBar />
-
-        <Button variant="ghost" className="text-lg">
-          Sign In
-        </Button>
+        <UserButton />
       </div>
     </nav>
   );
