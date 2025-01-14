@@ -13,9 +13,9 @@ export default async function Home() {
         priority
       />
       <div className="grid size-full place-items-center bg-background/80 p-4 backdrop-blur-lg sm:p-8">
-        <div className="flex w-full flex-col items-center gap-8 sm:w-5/6 lg:w-2/3">
+        <div className="flex w-full flex-col items-center gap-8 sm:w-5/6 md:w-2/3 xl:w-1/2">
           <h1 className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl">
-            Your streaming guide for popular movies
+            Your streaming guide for the most popular movies
           </h1>
           <p className="hidden text-center text-lg sm:flex">
             Discover top-rated trending movies and keep track of your favorites
