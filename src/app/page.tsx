@@ -12,7 +12,7 @@ export default async function Home() {
         className="absolute -z-50 scale-105 object-cover"
         priority
       />
-      <div className="grid size-full place-items-center bg-background/80 p-4 backdrop-blur-lg sm:p-8">
+      <div className="flex size-full flex-col items-center justify-center gap-10 bg-background/80 p-4 backdrop-blur-lg sm:justify-evenly sm:p-8">
         <div className="flex w-full flex-col items-center gap-8 sm:w-5/6 md:w-2/3 xl:w-1/2">
           <h1 className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl">
             Your streaming guide for the most popular movies
@@ -25,6 +25,13 @@ export default async function Home() {
             <Link href="/movies">Discover Movies</Link>
           </Button>
         </div>
+
+        <p className="font-semibold italic">
+          Powered by{" "}
+          <span className="bg-gradient-to-r from-[#90cea1] to-[#01b4e4] bg-clip-text font-bold text-transparent">
+            TMDB
+          </span>
+        </p>
       </div>
     </main>
   );
