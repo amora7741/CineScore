@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="relative grid min-h-screen grid-rows-[auto_1fr]">
+        <div className="relative grid min-h-dvh grid-rows-[auto_1fr]">
           <Navbar />
           {children}
         </div>
