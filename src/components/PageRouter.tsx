@@ -26,7 +26,7 @@ const PageRouter = ({
   });
 
   return (
-    <Pagination className="-ml-3">
+    <Pagination className="sm:-ml-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationBeginning

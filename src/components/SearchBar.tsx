@@ -34,7 +34,7 @@ const SearchBar = () => {
       </DialogTrigger>
 
       <DialogContent className="left-0 top-0 max-w-full translate-x-0 translate-y-0 border-none bg-transparent">
-        <div className="mx-auto my-28 w-full max-w-screen-xl">
+        <div className="mx-auto my-10 w-full max-w-screen-xl sm:my-14 md:my-20">
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <Label
               className={`px-3 text-muted-foreground sm:text-lg md:px-4 md:text-xl ${movieQuery ? "flex" : "invisible"}`}

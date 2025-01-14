@@ -29,8 +29,8 @@ const SearchPageContent = () => {
   }
 
   return (
-    <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[1fr_auto] gap-8 p-4 sm:p-8">
-      <p className="line-clamp-1 px-2 text-2xl">
+    <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[auto_1fr_auto] gap-2 p-4 sm:gap-4 sm:p-8 lg:gap-6">
+      <p className="truncate px-2 text-lg sm:text-xl lg:text-2xl">
         Search results for <span className="font-bold">{movieQuery}</span>
       </p>
 

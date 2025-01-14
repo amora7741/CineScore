@@ -10,16 +10,19 @@ export default async function Home() {
         alt="Background image"
         fill
         className="absolute -z-50 scale-105 object-cover"
+        priority
       />
-      <div className="grid size-full place-items-center bg-background/80 backdrop-blur-lg">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-7xl font-bold">CineScore</h1>
-          <p className="max-w-md text-center text-lg">
-            Discover and explore popular movies, create your personal favorites
-            list, and keep track of films you love.
+      <div className="grid size-full place-items-center bg-background/80 p-4 backdrop-blur-lg sm:p-8">
+        <div className="flex w-full flex-col items-center gap-8 sm:w-5/6 lg:w-2/3">
+          <h1 className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl">
+            Your streaming guide for popular movies
+          </h1>
+          <p className="hidden text-center text-lg sm:flex">
+            Discover top-rated trending movies and keep track of your favorites
+            with CineScore.
           </p>
-          <Button asChild>
-            <Link href="/movies">Start Browsing</Link>
+          <Button className="bg-red-600 p-6 px-12 hover:bg-red-800" asChild>
+            <Link href="/movies">Discover Movies</Link>
           </Button>
         </div>
       </div>
