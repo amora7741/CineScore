@@ -158,7 +158,7 @@ const Movies = ({
         ) : null}
       </AnimatePresence>
 
-      <ul className="grid grid-cols-2 gap-x-2 gap-y-6 md:grid-cols-4 lg:grid-cols-5">
+      <ul className="grid grid-cols-2 gap-2 sm:gap-y-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-6">
         {movies.map((movie) => (
           <motion.button
             layoutId={`card-${movie.id}-${id}`}
@@ -188,16 +188,20 @@ const Movies = ({
               <div className="flex flex-col">
                 <motion.h3
                   layoutId={`title-${movie.id}-${id}`}
-                  className="line-clamp-1 text-left text-lg font-medium text-neutral-800 dark:text-neutral-200"
+                  className="truncate text-left text-sm font-medium text-neutral-800 dark:text-neutral-200 sm:text-base lg:text-lg"
                 >
                   {movie.title || "No title found."}
                 </motion.h3>
                 <div className="flex items-center gap-1">
-                  <Star className="size-4" fill="black" />
-                  <span>{movie.vote_average?.toFixed(1) || "--"}</span>
-                  <span>({movie.vote_count})</span>
+                  <Star className="size-3 sm:size-4" fill="black" />
+                  <span className="text-xs sm:text-sm lg:text-base">
+                    {movie.vote_average?.toFixed(1) || "--"}
+                  </span>
+                  <span className="text-xs sm:text-sm lg:text-base">
+                    ({movie.vote_count})
+                  </span>
                 </div>
-                <p className="text-left">
+                <p className="text-left text-xs sm:text-sm lg:text-base">
                   {movie.release_date
                     ? new Date(movie.release_date).toLocaleDateString("en-US", {
                         month: "short",
