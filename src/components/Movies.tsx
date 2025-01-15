@@ -99,6 +99,7 @@ const Movies = ({
               <motion.div layoutId={`image-${active.id}-${id}`}>
                 {active.poster_path ? (
                   <Image
+                    priority
                     width={500}
                     height={750}
                     src={`https://image.tmdb.org/t/p/w500${active.poster_path}`}

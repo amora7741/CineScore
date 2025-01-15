@@ -5,7 +5,14 @@ import { Button } from "./ui/button";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,6 +41,14 @@ const SearchBar = () => {
       </DialogTrigger>
 
       <DialogContent className="left-0 top-0 max-w-full translate-x-0 translate-y-0 border-none bg-transparent">
+        <DialogHeader>
+          <DialogTitle className="sr-only">Search for a movie</DialogTitle>
+          <DialogDescription className="sr-only">
+            Make a query here. Hit enter or the search button when you&apos;re
+            done.
+          </DialogDescription>
+        </DialogHeader>
+
         <div className="mx-auto my-10 w-full max-w-screen-xl sm:my-14 md:my-20">
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <Label
