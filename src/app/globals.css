@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(-25%);
+  }
+
+  50% {
+    transform: none;
+  }
+}
+
+.animate-float {
+  animation: float 5s infinite;
+  animation-timing-function: ease-in-out;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
