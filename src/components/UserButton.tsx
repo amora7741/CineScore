@@ -1,4 +1,5 @@
-import { getServerAuthSession } from "@/lib/auth";
+"use client";
+
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { User } from "lucide-react";
@@ -12,8 +13,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const UserButton = async () => {
-  const session = await getServerAuthSession();
+import { SessionProvider, useSession } from "next-auth/react";
+
+const UserButton = () => (
+  <SessionProvider>
+    <UserButtonContent />
+  </SessionProvider>
+);
+
+const UserButtonContent = () => {
+  const { data: session } = useSession();
 
   return (
     <>
