@@ -7,7 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="grid grid-cols-1 lg:grid-cols-2">
+    <main className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(550px,_40%)]">
       <div className="relative hidden size-full overflow-hidden lg:flex">
         <Image
           src="/movies.png"
