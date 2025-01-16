@@ -9,8 +9,25 @@ import {
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
-const AuthForm = ({ page }: { page: "login" | "signup" }) => {
+const AuthForm = ({
+  page,
+  onSubmit,
+}: {
+  page: "login" | "signup";
+  // eslint-disable-next-line
+  onSubmit: (data: any) => void;
+}) => {
   const form = useForm<LogInCredentials | SignUpCredentials>({
     resolver: zodResolver(page === "login" ? loginSchema : signupSchema),
     defaultValues: {
@@ -19,6 +36,69 @@ const AuthForm = ({ page }: { page: "login" | "signup" }) => {
       ...(page === "signup" ? { confirmPassword: "" } : {}),
     },
   });
+
+  return (
+    <Form {...form}>
+      <form className="w-full space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input className="py-6" placeholder="Username" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  className="bg-transparent py-6"
+                  placeholder="Password"
+                  type="password"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {page === "signup" && (
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input
+                    className="py-6"
+                    placeholder="Confirm Password"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
+        <Button type="submit" className="w-full py-8">
+          Log In
+        </Button>
+      </form>
+    </Form>
+  );
 };
 
 export default AuthForm;
