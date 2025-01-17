@@ -44,7 +44,7 @@ const AuthForm = ({
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="relative">
               <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input
@@ -53,7 +53,7 @@ const AuthForm = ({
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="absolute right-0 top-0" />
             </FormItem>
           )}
         />
@@ -61,7 +61,7 @@ const AuthForm = ({
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="relative">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
@@ -71,7 +71,7 @@ const AuthForm = ({
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="absolute right-0 top-0" />
             </FormItem>
           )}
         />
@@ -81,7 +81,7 @@ const AuthForm = ({
             control={form.control}
             name="confirmPassword"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="relative">
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
                   <Input
@@ -91,7 +91,7 @@ const AuthForm = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="absolute right-0 top-0" />
               </FormItem>
             )}
           />
