@@ -69,7 +69,7 @@ const Movies = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 size-full bg-white/80 backdrop-blur-lg"
+            className="fixed inset-0 z-50 size-full bg-background/80 backdrop-blur-lg"
           />
         )}
       </AnimatePresence>
@@ -85,7 +85,7 @@ const Movies = ({
                 opacity: 0,
                 transition: { duration: 0.05 },
               }}
-              className="absolute right-2 top-2 flex size-16 items-center justify-center rounded-full bg-white lg:hidden"
+              className="absolute right-2 top-2 flex size-16 items-center justify-center rounded-full bg-background lg:hidden"
               onClick={() => setActive(null)}
             >
               <X />
@@ -94,7 +94,7 @@ const Movies = ({
             <motion.div
               layoutId={`card-${active.id}-${id}`}
               ref={ref}
-              className="flex size-full max-w-[500px] flex-col overflow-hidden bg-white shadow-lg dark:bg-neutral-900 sm:rounded-xl md:h-fit md:max-h-[90%]"
+              className="flex size-full flex-col overflow-hidden bg-background shadow-lg sm:h-fit sm:max-h-[90%] sm:max-w-[500px] sm:rounded-xl"
             >
               <motion.div layoutId={`image-${active.id}-${id}`}>
                 {active.poster_path ? (
@@ -194,7 +194,7 @@ const Movies = ({
                   {movie.title || "No title found."}
                 </motion.h3>
                 <div className="flex items-center gap-1">
-                  <Star className="size-3 sm:size-4" fill="black" />
+                  <Star className="size-3 fill-foreground sm:size-4" />
                   <span className="text-xs sm:text-sm lg:text-base">
                     {movie.vote_average?.toFixed(1) || "--"}
                   </span>

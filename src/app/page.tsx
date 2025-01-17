@@ -21,7 +21,10 @@ export default async function Home() {
             Discover top-rated trending movies and keep track of your favorites
             with CineScore.
           </p>
-          <Button className="bg-red-600 p-6 px-12 hover:bg-red-800" asChild>
+          <Button
+            className="bg-red-600 p-6 px-12 text-white hover:bg-red-800"
+            asChild
+          >
             <Link href="/movies">Discover Movies</Link>
           </Button>
         </div>

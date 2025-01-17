@@ -64,7 +64,7 @@ const SearchBar = () => {
                 value={movieQuery}
                 onChange={(e) => setMovieQuery(e.target.value)}
                 placeholder="Search for a movie..."
-                className="rounded-none border-x-0 border-b-2 border-t-0 border-b-gray-500 bg-transparent py-8 text-2xl font-semibold focus-visible:border-b-black sm:text-3xl md:text-5xl"
+                className="rounded-none border-x-0 border-b-2 border-t-0 border-b-gray-500 bg-transparent py-8 text-2xl font-semibold focus-visible:border-b-black dark:focus-visible:border-b-white sm:text-3xl md:text-5xl"
               />
               <Button
                 className="absolute right-0 top-1/4"
