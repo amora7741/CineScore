@@ -1,7 +1,7 @@
 import { Popcorn } from "lucide-react";
 import Link from "next/link";
-import SearchBar from "./SearchBar";
-import UserButton from "./UserButton";
+import SearchBar from "@/components/SearchBar";
+import UserButton from "@/components/UserButton";
 
 const Navbar = () => {
   return (

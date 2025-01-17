@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +11,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 import { SessionProvider, useSession } from "next-auth/react";
+import SignOut from "@/components/SignOut";
 
 const UserButton = () => (
   <SessionProvider>
@@ -45,6 +46,10 @@ const UserButtonContent = () => {
               <DropdownMenuItem>
                 <User />
                 <Link href="/profile">Profile</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <LogOut />
+                <SignOut />
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
