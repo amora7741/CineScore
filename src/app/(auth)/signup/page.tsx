@@ -48,7 +48,7 @@ const SignUp = () => {
           href="/login"
           className="font-semibold text-muted-foreground hover:underline"
         >
-          Login
+          Log In
         </Link>
       </div>
     </div>

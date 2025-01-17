@@ -19,6 +19,7 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { LoaderCircle } from "lucide-react";
 
 const AuthForm = ({
   page,
@@ -36,6 +37,8 @@ const AuthForm = ({
       ...(page === "signup" ? { confirmPassword: "" } : {}),
     },
   });
+
+  const { isSubmitting } = form.formState;
 
   return (
     <Form {...form}>
@@ -93,8 +96,16 @@ const AuthForm = ({
           />
         )}
 
-        <Button type="submit" className="!mt-14 w-full py-8">
-          {page === "login" ? "Log In" : "Sign Up"}
+        <Button
+          type="submit"
+          className="!mt-14 w-full py-8"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            <LoaderCircle className="!size-6 animate-spin" />
+          ) : (
+            <span>{page === "login" ? "Log In" : "Sign Up"}</span>
+          )}
         </Button>
       </form>
     </Form>

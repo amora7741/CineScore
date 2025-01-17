@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       signupSchema.parse({
         username: body.username,
         password: body.password,
-        confirmPassword: body.password,
+        confirmPassword: body.confirmPassword,
       });
 
     const existingUser = await sql(
