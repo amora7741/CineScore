@@ -40,7 +40,10 @@ const SearchBar = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="left-0 top-0 max-w-full translate-x-0 translate-y-0 border-none bg-transparent">
+      <DialogContent
+        isSearchDialog
+        className="left-0 top-0 max-w-full translate-x-0 translate-y-0 border-none bg-transparent"
+      >
         <DialogHeader>
           <DialogTitle className="sr-only">Search for a movie</DialogTitle>
           <DialogDescription className="sr-only">
