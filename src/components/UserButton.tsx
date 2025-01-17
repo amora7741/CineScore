@@ -42,7 +42,10 @@ const UserButtonContent = () => {
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem></DropdownMenuItem>
+              <DropdownMenuItem>
+                <User />
+                <Link href="/profile">Profile</Link>
+              </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

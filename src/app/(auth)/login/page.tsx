@@ -2,11 +2,38 @@
 
 import AuthForm from "@/components/AuthForm";
 import { LogInCredentials } from "@/lib/validation/credentials";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+
 const Login = () => {
-  const handleSubmit = (data: LogInCredentials) => {
-    console.log(data);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleSubmit = async (data: LogInCredentials) => {
+    try {
+      const result = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
+
+      if (!result?.ok) {
+        throw new Error(result?.error || "Failed to sign in");
+      } else {
+        router.replace("/");
+      }
+      // eslint-disable-next-line
+    } catch (error: any) {
+      console.error(error);
+
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error?.message || "An unexpected error occurred.",
+      });
+    }
   };
 
   return (
