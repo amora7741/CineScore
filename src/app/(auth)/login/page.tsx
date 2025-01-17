@@ -10,7 +10,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-1/2 flex-col items-center gap-8">
+    <div className="flex w-full max-w-[450px] flex-col items-center gap-8">
       <h1 className="text-4xl font-bold">Log In</h1>
 
       <AuthForm page="login" onSubmit={handleSubmit} />

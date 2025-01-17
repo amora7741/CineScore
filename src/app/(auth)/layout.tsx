@@ -10,6 +10,7 @@ export default function AuthLayout({
     <main className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(550px,_40%)]">
       <div className="relative hidden size-full overflow-hidden lg:flex">
         <Image
+          priority
           src="/movies.png"
           alt="Background image"
           width={500}
@@ -23,6 +24,7 @@ export default function AuthLayout({
       </div>
       <div className="relative size-full overflow-hidden">
         <Image
+          priority
           src="/movies.png"
           alt="Background image"
           width={500}
@@ -30,7 +32,7 @@ export default function AuthLayout({
           className="absolute -z-50 size-full scale-105 object-cover lg:hidden"
         />
 
-        <div className="grid size-full place-items-center bg-background/80 backdrop-blur-lg">
+        <div className="grid size-full place-items-center bg-background/80 p-8 backdrop-blur-lg">
           {children}
         </div>
       </div>

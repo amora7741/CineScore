@@ -47,7 +47,11 @@ const AuthForm = ({
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input className="py-6" placeholder="Username" {...field} />
+                <Input
+                  className="bg-transparent py-6"
+                  placeholder="Username"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,7 +85,7 @@ const AuthForm = ({
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
                   <Input
-                    className="py-6"
+                    className="bg-transparent py-6"
                     placeholder="Confirm Password"
                     type="password"
                     {...field}
