@@ -2,11 +2,38 @@
 
 import AuthForm from "@/components/AuthForm";
 import { SignUpCredentials } from "@/lib/validation/credentials";
+import axios from "axios";
 import Link from "next/link";
 
+import { useToast } from "@/hooks/use-toast";
+
 const SignUp = () => {
-  const handleSubmit = (data: SignUpCredentials) => {
-    console.log(data);
+  const { toast } = useToast();
+
+  const handleSubmit = async (data: SignUpCredentials) => {
+    try {
+      await axios.post("/api/auth/register", data);
+
+      toast({
+        variant: "success",
+        title: "Success!",
+        description: "You sucessfully registered.",
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.response?.data?.error || "Something went wrong!",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "An unexpected error occurred.",
+        });
+      }
+    }
   };
 
   return (
