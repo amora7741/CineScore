@@ -10,8 +10,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex w-full max-w-[450px] flex-col items-center gap-8">
-      <h1 className="text-4xl font-bold">Sign Up</h1>
+    <div className="flex size-full flex-col items-center justify-evenly bg-background p-8 shadow-lg sm:h-fit sm:max-w-[500px] sm:gap-8 sm:rounded-lg lg:shadow-none">
+      <h1 className="text-5xl font-bold">Sign Up</h1>
 
       <AuthForm page="signup" onSubmit={handleSubmit} />
 

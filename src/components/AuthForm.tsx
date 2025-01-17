@@ -47,11 +47,7 @@ const AuthForm = ({
             <FormItem className="relative">
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input
-                  className="bg-transparent py-6"
-                  placeholder="Username"
-                  {...field}
-                />
+                <Input className="py-6" placeholder="Username" {...field} />
               </FormControl>
               <FormMessage className="absolute right-0 top-0" />
             </FormItem>
@@ -65,7 +61,7 @@ const AuthForm = ({
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  className="bg-transparent py-6"
+                  className="py-6"
                   placeholder="Password"
                   type="password"
                   {...field}
@@ -85,7 +81,7 @@ const AuthForm = ({
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
                   <Input
-                    className="bg-transparent py-6"
+                    className="py-6"
                     placeholder="Confirm Password"
                     type="password"
                     {...field}

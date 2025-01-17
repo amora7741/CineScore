@@ -29,10 +29,10 @@ export default function AuthLayout({
           alt="Background image"
           width={500}
           height={500}
-          className="absolute -z-50 size-full scale-105 object-cover lg:hidden"
+          className="absolute -z-50 hidden size-full scale-105 object-cover sm:flex lg:hidden"
         />
 
-        <div className="grid size-full place-items-center bg-background/80 p-8 backdrop-blur-lg">
+        <div className="grid size-full place-items-center bg-background/80 backdrop-blur-lg">
           {children}
         </div>
       </div>
