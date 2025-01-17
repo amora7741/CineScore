@@ -49,7 +49,7 @@ const AuthForm = ({
               <FormControl>
                 <Input className="py-6" placeholder="Username" {...field} />
               </FormControl>
-              <FormMessage className="absolute right-0 top-0" />
+              <FormMessage className="absolute -bottom-6 right-0" />
             </FormItem>
           )}
         />
@@ -67,7 +67,7 @@ const AuthForm = ({
                   {...field}
                 />
               </FormControl>
-              <FormMessage className="absolute right-0 top-0" />
+              <FormMessage className="absolute -bottom-6 right-0" />
             </FormItem>
           )}
         />
@@ -87,14 +87,14 @@ const AuthForm = ({
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="absolute right-0 top-0" />
+                <FormMessage className="absolute -bottom-6 right-0" />
               </FormItem>
             )}
           />
         )}
 
-        <Button type="submit" className="w-full py-8">
-          Log In
+        <Button type="submit" className="!mt-14 w-full py-8">
+          {page === "login" ? "Log In" : "Sign Up"}
         </Button>
       </form>
     </Form>

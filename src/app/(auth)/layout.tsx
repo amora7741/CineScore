@@ -22,7 +22,7 @@ export default function AuthLayout({
           <Popcorn className="animate-float size-28 text-red-500 xl:size-40" />
         </div>
       </div>
-      <div className="relative size-full overflow-hidden">
+      <div className="relative size-full overflow-hidden shadow-lg">
         <Image
           priority
           src="/movies.png"
