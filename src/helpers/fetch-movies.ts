@@ -37,3 +37,29 @@ export const fetchMoviesByQuery = async (query: string, page: number) => {
     return `Error: ${error}`;
   }
 };
+
+export const fetchMovieByID = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+      options,
+    );
+
+    return data;
+  } catch (error) {
+    return `Error: ${error}`;
+  }
+};
+
+export const fetchMovieCredits = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+      options,
+    );
+
+    return data;
+  } catch (error) {
+    return `Error: ${error}`;
+  }
+};
