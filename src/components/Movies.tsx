@@ -1,11 +1,9 @@
 "use client";
 
-import { LoaderCircle, Star, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useId, useRef, useState } from "react";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { LoaderCircle, Star } from "lucide-react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const Movies = ({
   movies,
@@ -14,29 +12,6 @@ const Movies = ({
   movies: Movie[] | undefined;
   isLoading: boolean;
 }) => {
-  const [active, setActive] = useState<Movie | boolean | null>(null);
-  const id = useId();
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setActive(false);
-      }
-    }
-
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
-
-  useOutsideClick(ref, () => setActive(null));
-
   if (isLoading) {
     return (
       <div className="flex items-center justify-center">
@@ -62,161 +37,58 @@ const Movies = ({
   }
 
   return (
-    <>
-      <AnimatePresence>
-        {active && typeof active === "object" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 size-full bg-background/80 backdrop-blur-lg"
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {active && typeof active === "object" ? (
-          <div className="fixed inset-0 z-[100] grid place-items-center">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-                transition: { duration: 0.05 },
-              }}
-              className="absolute right-2 top-2 flex size-16 items-center justify-center rounded-full bg-background lg:hidden"
-              onClick={() => setActive(null)}
-            >
-              <X />
-            </motion.button>
-
-            <motion.div
-              layoutId={`card-${active.id}-${id}`}
-              ref={ref}
-              className="flex size-full flex-col overflow-hidden bg-background shadow-lg sm:h-fit sm:max-h-[90%] sm:max-w-[500px] sm:rounded-xl"
-            >
-              <motion.div layoutId={`image-${active.id}-${id}`}>
-                {active.poster_path ? (
-                  <Image
-                    priority
-                    width={500}
-                    height={750}
-                    src={`https://image.tmdb.org/t/p/w500${active.poster_path}`}
-                    alt={active.title || ""}
-                    className="h-80 w-full object-cover object-top sm:rounded-t-lg lg:h-80"
-                  />
-                ) : (
-                  <div className="grid h-80 place-items-center bg-neutral-200 sm:rounded-t-lg">
-                    <span className="text-neutral-500 dark:text-neutral-400">
-                      No image available
-                    </span>
-                  </div>
-                )}
-              </motion.div>
-
-              <div>
-                <div className="flex items-start justify-between p-4">
-                  <div>
-                    <motion.h3
-                      layoutId={`title-${active.id}-${id}`}
-                      className="text-base font-medium text-neutral-700 dark:text-neutral-200"
-                    >
-                      {active.title}
-                    </motion.h3>
-                    <motion.p
-                      layoutId={`release-${active.id}-${id}`}
-                      className="text-base text-neutral-600 dark:text-neutral-400"
-                    >
-                      {active.release_date}
-                    </motion.p>
-                  </div>
-
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="rounded-full bg-green-500 px-4 py-3 text-sm font-bold text-white"
-                  >
-                    {active.vote_average?.toFixed(1)}
-                  </motion.div>
-                </div>
-                <div className="relative px-4 pt-4">
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-xs text-neutral-600 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [scrollbar-width:none] dark:text-neutral-400 md:h-fit md:text-sm lg:text-base"
-                  >
-                    {active.overview || "No description provided."}
-                  </motion.div>
-                </div>
+    <ul className="grid grid-cols-2 gap-2 sm:gap-y-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-6">
+      {movies.map((movie) => (
+        <Link
+          href={`/movie/${movie.id}`}
+          key={movie.id}
+          className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+        >
+          <div className="flex w-full flex-col gap-2">
+            {movie.poster_path ? (
+              <Image
+                priority
+                width={325}
+                height={485}
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                alt={movie.title || ""}
+                className="aspect-[2/3] w-full rounded-lg object-cover object-top"
+              />
+            ) : (
+              <div className="grid aspect-[2/3] place-items-center rounded-lg bg-neutral-200">
+                <span className="text-neutral-500 dark:text-neutral-400">
+                  No image available
+                </span>
               </div>
-            </motion.div>
-          </div>
-        ) : null}
-      </AnimatePresence>
+            )}
 
-      <ul className="grid grid-cols-2 gap-2 sm:gap-y-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-6">
-        {movies.map((movie) => (
-          <motion.button
-            layoutId={`card-${movie.id}-${id}`}
-            key={movie.id}
-            onClick={() => setActive(movie)}
-            className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
-          >
-            <div className="flex w-full flex-col gap-2">
-              <motion.div layoutId={`image-${movie.id}-${id}`}>
-                {movie.poster_path ? (
-                  <Image
-                    priority
-                    width={325}
-                    height={485}
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    alt={movie.title || ""}
-                    className="aspect-[2/3] w-full rounded-lg object-cover object-top"
-                  />
-                ) : (
-                  <div className="grid aspect-[2/3] place-items-center rounded-lg bg-neutral-200">
-                    <span className="text-neutral-500 dark:text-neutral-400">
-                      No image available
-                    </span>
-                  </div>
-                )}
-              </motion.div>
-              <div className="flex flex-col">
-                <motion.h3
-                  layoutId={`title-${movie.id}-${id}`}
-                  className="truncate text-left text-sm font-medium text-neutral-800 dark:text-neutral-200 sm:text-base lg:text-lg"
-                >
-                  {movie.title || "No title found."}
-                </motion.h3>
-                <div className="flex items-center gap-1">
-                  <Star className="size-3 fill-foreground sm:size-4" />
-                  <span className="text-xs sm:text-sm lg:text-base">
-                    {movie.vote_average?.toFixed(1) || "--"}
-                  </span>
-                  <span className="text-xs sm:text-sm lg:text-base">
-                    ({movie.vote_count})
-                  </span>
-                </div>
-                <p className="text-left text-xs sm:text-sm lg:text-base">
-                  {movie.release_date
-                    ? new Date(movie.release_date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })
-                    : "No release date."}
-                </p>
+            <div className="flex flex-col">
+              <h3 className="truncate text-left text-sm font-medium text-neutral-800 dark:text-neutral-200 sm:text-base lg:text-lg">
+                {movie.title || "No title found."}
+              </h3>
+              <div className="flex items-center gap-1">
+                <Star className="size-3 fill-foreground sm:size-4" />
+                <span className="text-xs sm:text-sm lg:text-base">
+                  {movie.vote_average?.toFixed(1) || "--"}
+                </span>
+                <span className="text-xs sm:text-sm lg:text-base">
+                  ({movie.vote_count})
+                </span>
               </div>
+              <p className="text-left text-xs sm:text-sm lg:text-base">
+                {movie.release_date
+                  ? new Date(movie.release_date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })
+                  : "No release date."}
+              </p>
             </div>
-          </motion.button>
-        ))}
-      </ul>
-    </>
+          </div>
+        </Link>
+      ))}
+    </ul>
   );
 };
 
