@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 type Movie = {
   adult?: boolean;
   backdrop_path?: string;
@@ -13,6 +15,13 @@ type Movie = {
   video?: boolean;
   vote_average?: number;
   vote_count?: number;
+};
+
+type SearchMovie = {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
 };
 
 type ExpandedMovie = Movie & {
@@ -43,4 +52,9 @@ type ExpandedMovie = Movie & {
   }[];
   status?: string;
   tagline?: string;
+};
+
+type ExtraMovieInfo = {
+  icon: LucideIcon;
+  info: (string | number | undefined)[];
 };
