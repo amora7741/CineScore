@@ -1,10 +1,20 @@
 import MovieBanner from "@/components/MovieBanner";
+import MovieDetailSection from "@/components/MovieDetailSection";
 import {
   fetchMovieByID,
   // fetchMovieCredits
 } from "@/helpers/fetch-movies";
 import { ExpandedMovie, ExtraMovieInfo } from "@/types/Movie";
-import { Star, Clock, Calendar, Globe } from "lucide-react";
+import {
+  Star,
+  Clock,
+  Calendar,
+  Globe,
+  Info,
+  Video,
+  Users,
+  NotepadText,
+} from "lucide-react";
 
 const convertRuntime = (runtime: number): string => {
   const hours = Math.floor(runtime / 60);
@@ -42,7 +52,7 @@ const MoviePage = async ({
   ];
 
   return (
-    <main>
+    <main className="flex flex-col">
       <MovieBanner
         movieBackdropPath={movieData.backdrop_path}
         moviePosterPath={movieData.poster_path}
@@ -50,6 +60,26 @@ const MoviePage = async ({
         movieGenres={movieData.genres}
         extraMovieInfo={extraInfo}
       />
+
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">
+        <div className="flex flex-col gap-8">
+          <MovieDetailSection Icon={Info} header="Overview">
+            <p>{movieData.overview}</p>
+          </MovieDetailSection>
+
+          <MovieDetailSection Icon={Video} header="Trailer">
+            <h1>Bleh</h1>
+          </MovieDetailSection>
+
+          <MovieDetailSection Icon={Users} header="Cast">
+            <h1>Bleh</h1>
+          </MovieDetailSection>
+        </div>
+
+        <MovieDetailSection Icon={NotepadText} header="Details">
+          <h1>Bleh</h1>
+        </MovieDetailSection>
+      </div>
     </main>
   );
 };
