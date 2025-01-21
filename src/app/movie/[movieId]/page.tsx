@@ -124,21 +124,20 @@ const MoviePage = async ({
 
         <MovieDetailSection Icon={NotepadText} header="Details">
           <dl className="space-y-4">
-            {movieDetails.map((detail, i) => (
-              <div
-                key={i}
-                className={`flex flex-col gap-2 ${!detail.renderCondition ? "hidden" : ""}`}
-              >
-                <dt className="text-sm text-muted-foreground">
-                  {detail.label}
-                </dt>
-                {detail.infoIsString ? (
-                  <dd className="font-semibold">{detail.info}</dd>
-                ) : (
-                  <>{detail.info}</>
-                )}
-              </div>
-            ))}
+            {movieDetails.map((detail, i) =>
+              detail.renderCondition ? (
+                <div key={i} className="flex flex-col gap-2">
+                  <dt className="text-sm text-muted-foreground">
+                    {detail.label}
+                  </dt>
+                  {detail.infoIsString ? (
+                    <dd className="font-semibold">{detail.info}</dd>
+                  ) : (
+                    <>{detail.info}</>
+                  )}
+                </div>
+              ) : null,
+            )}
           </dl>
         </MovieDetailSection>
       </div>
