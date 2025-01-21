@@ -8,6 +8,7 @@ import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
 import Movies from "@/components/Movies";
 import PageRouter from "@/components/PageRouter";
+import { SearchMovie } from "@/types/Movie";
 
 const SearchPageContent = () => {
   const searchParams = useSearchParams();

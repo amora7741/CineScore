@@ -1,5 +1,4 @@
-"use client";
-
+import { Movie } from "@/types/Movie";
 import { LoaderCircle, Star } from "lucide-react";
 
 import Image from "next/image";

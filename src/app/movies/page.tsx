@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
+import { Movie } from "@/types/Movie";
 
 const MoviePageContent = () => {
   const searchParams = useSearchParams();

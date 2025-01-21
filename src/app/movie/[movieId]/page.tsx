@@ -1,5 +1,8 @@
 import MovieBanner from "@/components/MovieBanner";
-import { fetchMovieByID, fetchMovieCredits } from "@/helpers/fetch-movies";
+import {
+  fetchMovieByID,
+  // fetchMovieCredits
+} from "@/helpers/fetch-movies";
 import { ExpandedMovie, ExtraMovieInfo } from "@/types/Movie";
 import { Star, Clock, Calendar, Globe } from "lucide-react";
 
@@ -17,7 +20,7 @@ const MoviePage = async ({
   const movieId = (await params).movieId;
 
   const movieData: ExpandedMovie = await fetchMovieByID(movieId);
-  const movieCredits: MovieCredits = await fetchMovieCredits(movieId);
+  // const movieCredits: MovieCredits = await fetchMovieCredits(movieId);
 
   const extraInfo: ExtraMovieInfo[] = [
     {
