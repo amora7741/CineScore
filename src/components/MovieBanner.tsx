@@ -1,5 +1,7 @@
 import { ExtraMovieInfo } from "@/types/Movie";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { Heart } from "lucide-react";
 
 const MovieBanner = ({
   movieBackdropPath,
@@ -28,7 +30,7 @@ const MovieBanner = ({
         <div className="absolute -z-50 size-full bg-background" />
       )}
 
-      <div className="absolute inset-0 -z-40 bg-background/60" />
+      <div className="absolute inset-0 -z-40 bg-background/70" />
 
       <div className="mx-auto flex h-full max-w-screen-2xl flex-col items-center gap-8 p-8 md:flex-row md:items-end">
         {moviePosterPath ? (
@@ -58,7 +60,7 @@ const MovieBanner = ({
             </ul>
           )}
 
-          <h1 className="order-first text-center text-4xl font-bold sm:text-5xl md:order-none md:text-start md:text-6xl">
+          <h1 className="order-first line-clamp-3 text-center text-4xl font-bold !leading-tight sm:text-5xl md:order-none md:text-start md:text-6xl">
             {movieTitle}
           </h1>
 
@@ -67,6 +69,11 @@ const MovieBanner = ({
               <ExtraInfoDisplay key={i} info={info} />
             ))}
           </div>
+
+          <Button className="px-8 sm:w-fit sm:self-center md:self-start">
+            <Heart className="fill-background" />
+            Add to Favorites
+          </Button>
         </div>
       </div>
     </div>
