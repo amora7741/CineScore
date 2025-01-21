@@ -51,6 +51,47 @@ const MoviePage = async ({
     },
   ];
 
+  const movieDetails = [
+    {
+      label: "Status",
+      info: movieData.status,
+      infoIsString: true,
+    },
+    {
+      label: "Budget",
+      info: `$${movieData.budget?.toLocaleString()}`,
+      infoIsString: true,
+    },
+    {
+      label: "Revenue",
+      info: `$${movieData.revenue?.toLocaleString()}`,
+      infoIsString: true,
+    },
+    {
+      label: "Production Companies",
+      info: (
+        <dd>
+          {movieData.production_companies.map((company, i) => (
+            <span key={i}>
+              {company.name}
+              {i < movieData.production_companies.length - 1 ? ", " : ""}
+            </span>
+          ))}
+        </dd>
+      ),
+      infoIsString: false,
+    },
+    {
+      label: "Tagline",
+      info: (
+        <dd className="font-semibold">
+          &quot;{movieData.tagline || "N/A"}&quot;
+        </dd>
+      ),
+      infoIsString: false,
+    },
+  ];
+
   return (
     <main className="flex flex-col">
       <MovieBanner
@@ -64,7 +105,7 @@ const MoviePage = async ({
       <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">
         <div className="flex flex-col gap-8">
           <MovieDetailSection Icon={Info} header="Overview">
-            <p>{movieData.overview}</p>
+            <p className="text-lg">{movieData.overview}</p>
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Video} header="Trailer">
@@ -77,7 +118,20 @@ const MoviePage = async ({
         </div>
 
         <MovieDetailSection Icon={NotepadText} header="Details">
-          <h1>Bleh</h1>
+          <dl className="space-y-4">
+            {movieDetails.map((detail, i) => (
+              <div key={i} className="flex flex-col gap-2">
+                <dt className="text-sm text-muted-foreground">
+                  {detail.label}
+                </dt>
+                {detail.infoIsString ? (
+                  <dd className="font-semibold">{detail.info}</dd>
+                ) : (
+                  <>{detail.info}</>
+                )}
+              </div>
+            ))}
+          </dl>
         </MovieDetailSection>
       </div>
     </main>

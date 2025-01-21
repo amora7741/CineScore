@@ -14,7 +14,7 @@ const MovieDetailSection = ({
       <div className="flex items-center gap-2">
         <Icon className="size-5" />
 
-        <h1 className="text-xl font-bold">{header}</h1>
+        <h2 className="text-xl font-bold">{header}</h2>
       </div>
 
       {children}
