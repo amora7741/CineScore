@@ -56,23 +56,26 @@ const MoviePage = async ({
       label: "Status",
       info: movieData.status,
       infoIsString: true,
+      renderCondition: movieData.status,
     },
     {
       label: "Budget",
       info: `$${movieData.budget?.toLocaleString()}`,
       infoIsString: true,
+      renderCondition: movieData.budget && movieData.budget > 0,
     },
     {
       label: "Revenue",
       info: `$${movieData.revenue?.toLocaleString()}`,
       infoIsString: true,
+      renderCondition: movieData.revenue && movieData.revenue > 0,
     },
     {
       label: "Production Companies",
       info: (
         <dd>
           {movieData.production_companies.map((company, i) => (
-            <span key={i}>
+            <span key={i} className="font-semibold">
               {company.name}
               {i < movieData.production_companies.length - 1 ? ", " : ""}
             </span>
@@ -80,6 +83,7 @@ const MoviePage = async ({
         </dd>
       ),
       infoIsString: false,
+      renderCondition: movieData.production_companies.length > 0,
     },
     {
       label: "Tagline",
@@ -89,6 +93,7 @@ const MoviePage = async ({
         </dd>
       ),
       infoIsString: false,
+      renderCondition: movieData.tagline,
     },
   ];
 
@@ -105,7 +110,7 @@ const MoviePage = async ({
       <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">
         <div className="flex flex-col gap-8">
           <MovieDetailSection Icon={Info} header="Overview">
-            <p className="text-lg">{movieData.overview}</p>
+            <p className="sm:text-lg">{movieData.overview}</p>
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Video} header="Trailer">
@@ -120,7 +125,10 @@ const MoviePage = async ({
         <MovieDetailSection Icon={NotepadText} header="Details">
           <dl className="space-y-4">
             {movieDetails.map((detail, i) => (
-              <div key={i} className="flex flex-col gap-2">
+              <div
+                key={i}
+                className={`flex flex-col gap-2 ${!detail.renderCondition ? "hidden" : ""}`}
+              >
                 <dt className="text-sm text-muted-foreground">
                   {detail.label}
                 </dt>

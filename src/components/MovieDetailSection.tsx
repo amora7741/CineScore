@@ -10,7 +10,7 @@ const MovieDetailSection = ({
   children: React.ReactNode;
 }) => {
   return (
-    <section className="space-y-4 rounded-lg border-2 border-muted p-4">
+    <section className="h-fit space-y-4 rounded-lg border-2 border-muted p-4">
       <div className="flex items-center gap-2">
         <Icon className="size-5" />
 
