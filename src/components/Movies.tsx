@@ -22,7 +22,7 @@ const Movies = ({
   if (!movies) {
     return (
       <p className="self-center justify-self-center text-center text-xl font-bold sm:text-3xl">
-        There was an error fetching the movies :(
+        There was an error fetching the movies :&#40;
       </p>
     );
   }

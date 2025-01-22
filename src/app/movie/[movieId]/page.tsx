@@ -88,8 +88,8 @@ const MoviePage = async ({
     {
       label: "Tagline",
       info: (
-        <dd className="font-semibold">
-          &quot;{movieData.tagline || "N/A"}&quot;
+        <dd className="font-semibold italic">
+          &quot;{movieData.tagline}&quot;
         </dd>
       ),
       infoIsString: false,
@@ -105,6 +105,7 @@ const MoviePage = async ({
         movieTitle={movieData.title}
         movieGenres={movieData.genres}
         extraMovieInfo={extraInfo}
+        showBackButton
       />
 
       <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">

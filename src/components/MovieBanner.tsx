@@ -2,6 +2,7 @@ import { ExtraMovieInfo } from "@/types/Movie";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
+import BackButton from "./BackButton";
 
 const MovieBanner = ({
   movieBackdropPath,
@@ -9,12 +10,14 @@ const MovieBanner = ({
   movieTitle,
   movieGenres,
   extraMovieInfo,
+  showBackButton = false,
 }: {
   movieBackdropPath: string | undefined;
   moviePosterPath: string | undefined;
   movieTitle: string | undefined;
   movieGenres: { id: number; name: string }[];
   extraMovieInfo: ExtraMovieInfo[];
+  showBackButton?: boolean;
 }) => {
   return (
     <div className="relative min-h-[80vh]">
@@ -30,6 +33,10 @@ const MovieBanner = ({
         <div className="absolute -z-50 size-full bg-muted-foreground" />
       )}
 
+      {showBackButton && (
+        <BackButton className="absolute left-4 top-4 md:left-8 md:top-8" />
+      )}
+
       <div className="absolute inset-0 -z-40 bg-background/70" />
 
       <div className="absolute inset-0 -z-40 bg-gradient-to-t from-background to-transparent" />
@@ -40,10 +47,10 @@ const MovieBanner = ({
             <Image
               priority
               width={300}
-              height={0}
+              height={450}
               src={`https://image.tmdb.org/t/p/w500/${moviePosterPath}`}
               alt={`${movieTitle} backdrop image`}
-              className="w-[190px] rounded-lg sm:w-[200px] md:w-[250px]"
+              className="aspect-[2/3] w-[190px] rounded-lg sm:w-[200px] md:w-[250px]"
             />
           ) : (
             <div className="aspect-[2/3] w-[190px] rounded-lg bg-muted-foreground sm:w-[200px] md:w-[250px]" />
