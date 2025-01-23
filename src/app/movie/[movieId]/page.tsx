@@ -1,7 +1,11 @@
 import Cast from "@/components/Cast";
 import MovieBanner from "@/components/MovieBanner";
 import MovieDetailSection from "@/components/MovieDetailSection";
-import { fetchMovieByID, fetchMovieCredits } from "@/helpers/fetch-movies";
+import {
+  fetchMovieByID,
+  fetchMovieCredits,
+  fetchMovieVideos,
+} from "@/helpers/fetch-movies";
 import { ExpandedMovie, ExtraMovieInfo } from "@/types/Movie";
 import {
   Star,
@@ -30,8 +34,15 @@ const MoviePage = async ({
 }) => {
   const { movieId } = await params;
 
-  const [movieData, movieCredits]: [ExpandedMovie, MovieCredits] =
-    await Promise.all([fetchMovieByID(movieId), fetchMovieCredits(movieId)]);
+  const [movieData, movieCredits, movieVideos]: [
+    ExpandedMovie,
+    MovieCredits,
+    MovieVideos,
+  ] = await Promise.all([
+    fetchMovieByID(movieId),
+    fetchMovieCredits(movieId),
+    fetchMovieVideos(movieId),
+  ]);
 
   const extraInfo: ExtraMovieInfo[] = [
     {
@@ -82,6 +93,16 @@ const MoviePage = async ({
     },
   ];
 
+  const trailerVideo = movieVideos.results
+    .filter(
+      (video) =>
+        video.type === "Trailer" && video.site === "YouTube" && video.official,
+    )
+    .sort(
+      (a, b) =>
+        new Date(a.published_at).getTime() - new Date(b.published_at).getTime(),
+    )[0];
+
   return (
     <main className="flex flex-col">
       <MovieBanner
@@ -102,7 +123,16 @@ const MoviePage = async ({
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Video} header="Trailer">
-            <h1>Bleh</h1>
+            {trailerVideo ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${trailerVideo.key}`}
+                title={trailerVideo.name}
+                allowFullScreen
+                className="aspect-video w-full rounded-lg"
+              ></iframe>
+            ) : (
+              <p>No trailer available.</p>
+            )}
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Users} header="Cast">

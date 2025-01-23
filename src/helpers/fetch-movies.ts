@@ -2,6 +2,8 @@ import axios from "axios";
 
 const API_KEY = process.env.TMDB_API_KEY;
 
+const BASE_URL = "https://api.themoviedb.org/3/movie";
+
 const options = {
   method: "get",
   headers: {
@@ -15,7 +17,7 @@ type ListType = "now_playing" | "popular" | "top_rated" | "upcoming";
 export const fetchMovies = async (page: number, listType: ListType) => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${listType}?language=en-US&page=${page}`,
+      `${BASE_URL}/${listType}?language=en-US&page=${page}`,
       options,
     );
 
@@ -41,7 +43,7 @@ export const fetchMoviesByQuery = async (query: string, page: number) => {
 export const fetchMovieByID = async (id: string) => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+      `${BASE_URL}/${id}?language=en-US`,
       options,
     );
 
@@ -54,7 +56,20 @@ export const fetchMovieByID = async (id: string) => {
 export const fetchMovieCredits = async (id: string) => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+      `${BASE_URL}/${id}/credits?language=en-US`,
+      options,
+    );
+
+    return data;
+  } catch (error) {
+    return `Error: ${error}`;
+  }
+};
+
+export const fetchMovieVideos = async (id: string) => {
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL}/${id}/videos?language=en-US`,
       options,
     );
 
