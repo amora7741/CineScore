@@ -25,7 +25,7 @@ export default async function Home() {
             className="bg-red-600 p-6 px-12 text-white hover:bg-red-800"
             asChild
           >
-            <Link href="/movies">Discover Movies</Link>
+            <Link href="/movies/popular">Discover Movies</Link>
           </Button>
         </div>
 

@@ -22,7 +22,7 @@ const PageRouter = ({
 }) => {
   const getQueryParams = (pageNum: number) => ({
     ...additionalQuery,
-    page: pageNum,
+    page: Math.min(maxPages, pageNum),
   });
 
   return (

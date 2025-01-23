@@ -12,8 +12,6 @@ const options = {
   },
 };
 
-type ListType = "now_playing" | "popular" | "top_rated" | "upcoming";
-
 export const fetchMovies = async (page: number, listType: ListType) => {
   try {
     const { data } = await axios.get(
