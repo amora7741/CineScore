@@ -16,7 +16,7 @@ const Cast = ({ cast }: { cast: CastMember[] }) => {
   return (
     <Carousel opts={{ dragFree: true }}>
       <CarouselContent>
-        {cast.map((castMember) => (
+        {cast.slice(0, 20).map((castMember) => (
           <CarouselItem key={castMember.id} className="basis-auto">
             <div className="relative flex aspect-[2/3] w-[190px] flex-col sm:w-[200px] md:w-[250px]">
               {castMember.profile_path ? (

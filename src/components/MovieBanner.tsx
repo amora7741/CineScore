@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { Heart } from "lucide-react";
 import BackButton from "./BackButton";
+import MovieBackdrop from "./MovieBackdrop";
 
 const MovieBanner = ({
   movieBackdropPath,
@@ -21,17 +22,7 @@ const MovieBanner = ({
 }) => {
   return (
     <div className="relative min-h-[80vh]">
-      {movieBackdropPath ? (
-        <Image
-          priority
-          fill
-          src={`https://image.tmdb.org/t/p/original/${movieBackdropPath}`}
-          alt={`${movieTitle} backdrop image`}
-          className="-z-50 object-cover"
-        />
-      ) : (
-        <div className="absolute -z-50 size-full bg-muted-foreground" />
-      )}
+      <MovieBackdrop movieBackdropPath={movieBackdropPath} />
 
       {showBackButton && (
         <BackButton className="absolute left-4 top-4 md:left-8 md:top-8" />

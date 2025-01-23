@@ -77,12 +77,8 @@ const MoviePage = async ({
     },
     {
       label: "Tagline",
-      info: (
-        <dd className="font-semibold italic">
-          &quot;{movieData.tagline}&quot;
-        </dd>
-      ),
-      renderCondition: movieData.tagline,
+      info: `"${movieData.tagline}"`,
+      renderCondition: !!movieData.tagline,
     },
   ];
 
