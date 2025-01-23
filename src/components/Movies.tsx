@@ -41,7 +41,7 @@ const Movies = ({
         <Link
           href={`/movie/${movie.id}`}
           key={movie.id}
-          className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+          className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-muted/50"
         >
           <div className="flex w-full flex-col gap-2">
             {movie.poster_path ? (
@@ -54,15 +54,13 @@ const Movies = ({
                 className="aspect-[2/3] w-full rounded-lg object-cover object-top"
               />
             ) : (
-              <div className="grid aspect-[2/3] place-items-center rounded-lg bg-neutral-200">
-                <span className="text-neutral-500 dark:text-neutral-400">
-                  No image available
-                </span>
+              <div className="grid aspect-[2/3] place-items-center rounded-lg bg-muted">
+                <span>No image available</span>
               </div>
             )}
 
             <div className="flex flex-col">
-              <h3 className="truncate text-left text-sm font-medium text-neutral-800 dark:text-neutral-200 sm:text-base lg:text-lg">
+              <h3 className="truncate text-left text-sm font-medium sm:text-base lg:text-lg">
                 {movie.title || "No title found."}
               </h3>
               <div className="flex items-center gap-1">

@@ -13,7 +13,7 @@ const BackButton: React.FC<BackButtonProps> = ({ className }) => {
 
   return (
     <Button
-      className={`h-fit rounded-full bg-muted p-4 text-card-foreground hover:bg-background ${className}`}
+      className={`h-fit rounded-full bg-muted/50 p-2 text-card-foreground backdrop-blur-lg hover:bg-background ${className}`}
       onClick={() => router.back()}
     >
       <ArrowLeft className="!size-6" />

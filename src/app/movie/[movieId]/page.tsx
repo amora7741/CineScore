@@ -1,9 +1,7 @@
+import Cast from "@/components/Cast";
 import MovieBanner from "@/components/MovieBanner";
 import MovieDetailSection from "@/components/MovieDetailSection";
-import {
-  fetchMovieByID,
-  // fetchMovieCredits
-} from "@/helpers/fetch-movies";
+import { fetchMovieByID, fetchMovieCredits } from "@/helpers/fetch-movies";
 import { ExpandedMovie, ExtraMovieInfo } from "@/types/Movie";
 import {
   Star,
@@ -30,7 +28,7 @@ const MoviePage = async ({
   const movieId = (await params).movieId;
 
   const movieData: ExpandedMovie = await fetchMovieByID(movieId);
-  // const movieCredits: MovieCredits = await fetchMovieCredits(movieId);
+  const movieCredits: MovieCredits = await fetchMovieCredits(movieId);
 
   const extraInfo: ExtraMovieInfo[] = [
     {
@@ -109,9 +107,11 @@ const MoviePage = async ({
       />
 
       <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 overflow-hidden">
           <MovieDetailSection Icon={Info} header="Overview">
-            <p className="sm:text-lg">{movieData.overview}</p>
+            <p className="sm:text-lg">
+              {movieData.overview || "No overview found."}
+            </p>
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Video} header="Trailer">
@@ -119,7 +119,7 @@ const MoviePage = async ({
           </MovieDetailSection>
 
           <MovieDetailSection Icon={Users} header="Cast">
-            <h1>Bleh</h1>
+            <Cast cast={movieCredits.cast} />
           </MovieDetailSection>
         </div>
 
