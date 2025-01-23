@@ -20,15 +20,18 @@ const convertRuntime = (runtime: number): string => {
   return `${hours}h ${minutes}m`;
 };
 
+const formatCurrency = (value?: number) =>
+  value ? `$${value.toLocaleString()}` : "N/A";
+
 const MoviePage = async ({
   params,
 }: {
   params: Promise<{ movieId: string }>;
 }) => {
-  const movieId = (await params).movieId;
+  const { movieId } = await params;
 
-  const movieData: ExpandedMovie = await fetchMovieByID(movieId);
-  const movieCredits: MovieCredits = await fetchMovieCredits(movieId);
+  const [movieData, movieCredits]: [ExpandedMovie, MovieCredits] =
+    await Promise.all([fetchMovieByID(movieId), fetchMovieCredits(movieId)]);
 
   const extraInfo: ExtraMovieInfo[] = [
     {
@@ -53,34 +56,23 @@ const MoviePage = async ({
     {
       label: "Status",
       info: movieData.status,
-      infoIsString: true,
-      renderCondition: movieData.status,
+      renderCondition: !!movieData.status,
     },
     {
       label: "Budget",
-      info: `$${movieData.budget?.toLocaleString()}`,
-      infoIsString: true,
+      info: formatCurrency(movieData.budget),
       renderCondition: movieData.budget && movieData.budget > 0,
     },
     {
       label: "Revenue",
-      info: `$${movieData.revenue?.toLocaleString()}`,
-      infoIsString: true,
+      info: formatCurrency(movieData.revenue),
       renderCondition: movieData.revenue && movieData.revenue > 0,
     },
     {
       label: "Production Companies",
-      info: (
-        <dd>
-          {movieData.production_companies.map((company, i) => (
-            <span key={i} className="font-semibold">
-              {company.name}
-              {i < movieData.production_companies.length - 1 ? ", " : ""}
-            </span>
-          ))}
-        </dd>
-      ),
-      infoIsString: false,
+      info: movieData.production_companies
+        .map((company) => company.name)
+        .join(", "),
       renderCondition: movieData.production_companies.length > 0,
     },
     {
@@ -90,7 +82,6 @@ const MoviePage = async ({
           &quot;{movieData.tagline}&quot;
         </dd>
       ),
-      infoIsString: false,
       renderCondition: movieData.tagline,
     },
   ];
@@ -125,20 +116,17 @@ const MoviePage = async ({
 
         <MovieDetailSection Icon={NotepadText} header="Details">
           <dl className="space-y-4">
-            {movieDetails.map((detail, i) =>
-              detail.renderCondition ? (
+            {movieDetails
+              .filter((detail) => detail.renderCondition)
+              .map((detail, i) => (
                 <div key={i} className="flex flex-col gap-2">
                   <dt className="text-sm text-muted-foreground">
                     {detail.label}
                   </dt>
-                  {detail.infoIsString ? (
-                    <dd className="font-semibold">{detail.info}</dd>
-                  ) : (
-                    <>{detail.info}</>
-                  )}
+
+                  <dd className="font-semibold">{detail.info}</dd>
                 </div>
-              ) : null,
-            )}
+              ))}
           </dl>
         </MovieDetailSection>
       </div>
