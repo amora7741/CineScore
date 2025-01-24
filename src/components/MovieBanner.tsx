@@ -33,7 +33,7 @@ const MovieBanner = ({
       <div className="absolute inset-0 -z-40 bg-gradient-to-t from-background to-transparent" />
 
       <div className="mx-auto flex size-full max-w-screen-2xl items-center justify-center md:justify-start">
-        <div className="flex flex-col items-center gap-8 p-8 md:flex-row md:items-end">
+        <div className="flex flex-col items-center gap-8 p-4 sm:p-8 md:flex-row md:items-end">
           {moviePosterPath ? (
             <Image
               priority

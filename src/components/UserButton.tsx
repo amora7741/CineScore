@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { LogOut, User } from "lucide-react";
+import { LoaderCircle, LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +15,7 @@ import {
 
 import { SessionProvider, useSession } from "next-auth/react";
 import SignOut from "@/components/SignOut";
+import { useEffect, useState } from "react";
 
 const UserButton = () => (
   <SessionProvider>
@@ -23,15 +24,31 @@ const UserButton = () => (
 );
 
 const UserButtonContent = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (status !== "loading") {
+      setLoading(false);
+    }
+  }, [status]);
+
+  if (loading) {
+    return (
+      <Button variant="ghost" className="sm:w-24">
+        <LoaderCircle className="!size-6 animate-spin" />
+      </Button>
+    );
+  }
 
   return (
     <>
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <span className="hidden text-lg sm:flex">
+            <Button variant="ghost" className="sm:w-24">
+              <span className="hidden truncate text-lg sm:flex">
                 {session.user.username}
               </span>
               <User className="!size-6 stroke-[3] sm:hidden" />
@@ -55,7 +72,7 @@ const UserButtonContent = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button variant="ghost" className="text-lg">
+        <Button variant="ghost" className="text-lg sm:w-24">
           <Link href="/login">
             <span className="hidden sm:flex">Sign In</span>
             <User className="!size-6 stroke-[3] sm:hidden" />

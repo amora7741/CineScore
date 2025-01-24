@@ -26,7 +26,7 @@ const Cast = ({ cast }: { cast: CastMember[] }) => {
                   height={450}
                   src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`}
                   alt={`${castMember.name}  image`}
-                  className="-z-50 rounded-lg object-cover"
+                  className="-z-50 select-none rounded-lg object-cover"
                 />
               ) : (
                 <div className="grid size-full place-items-center rounded-lg bg-muted">
@@ -34,13 +34,15 @@ const Cast = ({ cast }: { cast: CastMember[] }) => {
                 </div>
               )}
 
-              <div className="absolute inset-0 -z-40 bg-gradient-to-t from-background to-transparent" />
+              <div className="absolute inset-0 -z-40 bg-gradient-to-t from-background via-background/20 to-transparent" />
 
               <div className="absolute bottom-0 flex flex-col p-2">
-                <span className="line-clamp-3 font-bold">
+                <span className="line-clamp-3 select-none font-bold">
                   {castMember.character}
                 </span>
-                <span className="line-clamp-2">{castMember.name}</span>
+                <span className="line-clamp-2 select-none">
+                  {castMember.name}
+                </span>
               </div>
             </div>
           </CarouselItem>

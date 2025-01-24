@@ -114,7 +114,7 @@ const MoviePage = async ({
         showBackButton
       />
 
-      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-8 md:grid-cols-[2fr_1fr]">
+      <div className="mx-auto grid w-full max-w-screen-2xl gap-8 p-4 sm:p-8 md:grid-cols-[2fr_1fr]">
         <div className="flex flex-col gap-8 overflow-hidden">
           <MovieDetailSection Icon={Info} header="Overview">
             <p className="sm:text-lg">
