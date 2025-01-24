@@ -31,7 +31,7 @@ const MoviePageContent = () => {
   );
 
   return (
-    <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[1fr_auto] gap-2 p-4 sm:gap-4 sm:p-8 lg:gap-6">
+    <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[1fr_auto] gap-6 p-4 py-8 sm:p-8">
       <Movies movies={movies} isLoading={isLoading} />
       <PageRouter
         page={page}
