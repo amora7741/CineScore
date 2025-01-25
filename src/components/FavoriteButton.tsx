@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart } from "lucide-react";
+import { Heart, LoaderCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import axios from "axios";
 import useSWR from "swr";
@@ -49,8 +49,14 @@ const FavoriteButton = ({
       onClick={handleFavoriteToggle}
       disabled={isLoading}
     >
-      <Heart className="fill-background" />
-      {data?.favorited ? "Remove from Favorites" : "Add to Favorites"}
+      {isLoading ? (
+        <LoaderCircle className="animate-spin" />
+      ) : (
+        <>
+          <Heart className="fill-background" />
+          {data?.favorited ? "Remove from Favorites" : "Add to Favorites"}
+        </>
+      )}
     </Button>
   );
 };

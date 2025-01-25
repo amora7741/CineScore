@@ -2,9 +2,32 @@ import { getServerAuthSession } from "@/lib/auth";
 import { neon } from "@neondatabase/serverless";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const sql = neon(`${process.env.DATABASE_URL}`);
+const sql = neon(process.env.DATABASE_URL!);
 
+const preparedStatements = {
+  getUserAndFavoriteStatus: `
+    SELECT 
+      u.id as user_exists,
+      (SELECT EXISTS(
+        SELECT 1 FROM user_movie 
+        WHERE user_id = ($1) AND movie_id = ($2)
+      )) as is_favorited
+    FROM users u 
+    WHERE u.id = ($1) 
+    LIMIT 1;
+  `,
+
+  createMovieInstance: `INSERT INTO movie (id, title, backdrop_path, poster_path, overview) 
+  VALUES ($1, $2, $3, $4, $5) 
+  ON CONFLICT (id) DO NOTHING;`,
+
+  createUserMovieInstance: `INSERT INTO user_movie (user_id, movie_id)
+         VALUES ($1, $2);`,
+
+  removeUserMovieInstance: `DELETE FROM user_movie WHERE user_id = ($1) AND movie_id = ($2);`,
+};
+
+export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
 
   const movieId = searchParams.get("movieId");
@@ -19,24 +42,20 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const user = await sql("SELECT * FROM users WHERE id = ($1) LIMIT 1;", [
+    const result = await sql(preparedStatements.getUserAndFavoriteStatus, [
       existingSession.user.id,
+      movieId,
     ]);
 
-    if (user.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(
         { error: "User does not exist!", favorited: false },
         { status: 401 },
       );
     }
 
-    const movieFavorited = await sql(
-      "SELECT * FROM user_movie WHERE user_id = ($1) AND movie_id = ($2) LIMIT 1;",
-      [existingSession.user.id, movieId],
-    );
-
     return NextResponse.json({
-      favorited: movieFavorited.length !== 0,
+      favorited: result[0].is_favorited,
     });
   } catch (error) {
     console.error(error);
@@ -45,8 +64,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const sql = neon(`${process.env.DATABASE_URL}`);
-
   try {
     const {
       movieId,
@@ -65,51 +82,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = await sql("SELECT * FROM users WHERE id = ($1) LIMIT 1;", [
+    const result = await sql(preparedStatements.getUserAndFavoriteStatus, [
       existingSession.user.id,
+      movieId,
     ]);
 
-    if (user.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(
         { error: "User does not exist!", favorited: false },
         { status: 401 },
       );
     }
 
-    const movieFavorited = await sql(
-      "SELECT * FROM user_movie WHERE user_id = ($1) AND movie_id = ($2) LIMIT 1;",
-      [existingSession.user.id, movieId],
-    );
-
-    if (movieFavorited.length === 0) {
-      await sql(
-        `INSERT INTO movie (id, title, backdrop_path, poster_path, overview)
-         VALUES ($1, $2, $3, $4, $5)
-         ON CONFLICT (id) DO NOTHING;`,
-        [
+    if (!result[0].is_favorited) {
+      await sql.transaction((tx) => [
+        tx(preparedStatements.createMovieInstance, [
           movieId,
           movieTitle,
           movieBackdropPath,
           moviePosterPath,
           movieOverview,
-        ],
-      );
-
-      await sql(
-        `INSERT INTO user_movie (user_id, movie_id)
-         VALUES ($1, $2);`,
-        [existingSession.user.id, movieId],
-      );
+        ]),
+        tx(preparedStatements.createUserMovieInstance, [
+          existingSession.user.id,
+          movieId,
+        ]),
+      ]);
 
       return NextResponse.json({
         message: "Movie favorited.",
         favorited: true,
       });
     } else {
-      await sql(
-        `DELETE FROM user_movie WHERE user_id = ($1) AND movie_id = ($2);`,
-        [existingSession.user.id, movieId],
-      );
+      await sql(preparedStatements.removeUserMovieInstance, [
+        existingSession.user.id,
+        movieId,
+      ]);
 
       return NextResponse.json({
         message: "Movie unfavorited.",
