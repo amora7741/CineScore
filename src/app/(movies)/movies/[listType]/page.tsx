@@ -28,6 +28,13 @@ const MoviePageContent = () => {
   const { data: movies, isLoading } = useSWR<Movie[]>(
     `/api/movies?listType=${listType}&page=${page}`,
     fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: true,
+      dedupingInterval: 60000,
+      keepPreviousData: true,
+      refreshInterval: 300000,
+    },
   );
 
   return (

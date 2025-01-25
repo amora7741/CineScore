@@ -19,6 +19,13 @@ const SearchPageContent = () => {
   const { data: movieData, isLoading } = useSWR<SearchMovie>(
     movieQuery ? `/api/movies/search?query=${movieQuery}&page=${page}` : null,
     fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: true,
+      dedupingInterval: 60000,
+      keepPreviousData: true,
+      refreshInterval: 300000,
+    },
   );
 
   if (!movieQuery) {

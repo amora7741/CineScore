@@ -46,6 +46,16 @@ const MoviePage = async ({
     fetchMovieVideos(movieId),
   ]);
 
+  if (!movieData.id) {
+    return (
+      <div className="grid place-items-center p-4 sm:p-8">
+        <h1 className="text-center text-xl font-bold sm:text-3xl">
+          The movie you are looking for does not exist or was removed.
+        </h1>
+      </div>
+    );
+  }
+
   const extraInfo: ExtraMovieInfo[] = [
     {
       icon: Star,
