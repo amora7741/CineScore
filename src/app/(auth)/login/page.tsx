@@ -23,6 +23,7 @@ const Login = () => {
         throw new Error(result?.error || "Failed to sign in");
       } else {
         router.replace("/");
+        router.refresh();
       }
       // eslint-disable-next-line
     } catch (error: any) {

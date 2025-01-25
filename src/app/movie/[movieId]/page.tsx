@@ -6,6 +6,7 @@ import {
   fetchMovieCredits,
   fetchMovieVideos,
 } from "@/helpers/fetch-movies";
+import { getServerAuthSession } from "@/lib/auth";
 import { ExpandedMovie, ExtraMovieInfo } from "@/types/Movie";
 import {
   Star,
@@ -33,6 +34,7 @@ const MoviePage = async ({
   params: Promise<{ movieId: string }>;
 }) => {
   const { movieId } = await params;
+  const session = await getServerAuthSession();
 
   const [movieData, movieCredits, movieVideos]: [
     ExpandedMovie,
@@ -108,9 +110,12 @@ const MoviePage = async ({
       <MovieBanner
         movieBackdropPath={movieData.backdrop_path}
         moviePosterPath={movieData.poster_path}
+        movieId={movieData.id}
+        movieOverview={movieData.overview}
         movieTitle={movieData.title}
         movieGenres={movieData.genres}
         extraMovieInfo={extraInfo}
+        sessionUser={session?.user.username}
         showBackButton
       />
 
@@ -129,7 +134,7 @@ const MoviePage = async ({
                 title={trailerVideo.name}
                 allowFullScreen
                 className="aspect-video w-full rounded-lg"
-              ></iframe>
+              />
             ) : (
               <p>No trailer available.</p>
             )}

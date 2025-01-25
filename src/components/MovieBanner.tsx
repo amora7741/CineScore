@@ -1,23 +1,28 @@
 import { ExtraMovieInfo } from "@/types/Movie";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Heart } from "lucide-react";
 import BackButton from "./BackButton";
 import MovieBackdrop from "./MovieBackdrop";
+import FavoriteButton from "./FavoriteButton";
 
-const MovieBanner = ({
+const MovieBanner = async ({
   movieBackdropPath,
   moviePosterPath,
+  movieId,
+  movieOverview,
   movieTitle,
   movieGenres,
   extraMovieInfo,
+  sessionUser,
   showBackButton = false,
 }: {
   movieBackdropPath: string | undefined;
   moviePosterPath: string | undefined;
+  movieId: number | undefined;
+  movieOverview: string | undefined;
   movieTitle: string | undefined;
   movieGenres: { id: number; name: string }[];
   extraMovieInfo: ExtraMovieInfo[];
+  sessionUser: string | undefined;
   showBackButton?: boolean;
 }) => {
   return (
@@ -67,10 +72,16 @@ const MovieBanner = ({
                 <ExtraInfoDisplay key={i} info={info} />
               ))}
             </div>
-            <Button className="px-8 sm:w-fit sm:self-center md:self-start">
-              <Heart className="fill-background" />
-              Add to Favorites
-            </Button>
+
+            {sessionUser && (
+              <FavoriteButton
+                movieId={movieId}
+                movieTitle={movieTitle}
+                movieBackdropPath={movieBackdropPath}
+                moviePosterPath={moviePosterPath}
+                movieOverview={movieOverview}
+              />
+            )}
           </div>
         </div>
       </div>
