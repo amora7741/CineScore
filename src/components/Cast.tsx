@@ -21,7 +21,7 @@ const Cast = ({ cast }: { cast: CastMember[] }) => {
             <div className="relative flex aspect-[2/3] w-[190px] flex-col sm:w-[200px] md:w-[250px]">
               {castMember.profile_path ? (
                 <Image
-                  priority
+                  loading="lazy"
                   width={300}
                   height={450}
                   src={`https://image.tmdb.org/t/p/w500/${castMember.profile_path}`}

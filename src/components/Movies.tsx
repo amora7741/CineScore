@@ -1,8 +1,9 @@
 import { Movie } from "@/types/Movie";
-import { LoaderCircle, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
+import MoviesSkeleton from "./MoviesSkeleton";
 
 const Movies = ({
   movies,
@@ -12,11 +13,7 @@ const Movies = ({
   isLoading: boolean;
 }) => {
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center">
-        <LoaderCircle className="size-16 animate-spin" />
-      </div>
-    );
+    return <MoviesSkeleton />;
   }
 
   if (!movies) {
@@ -41,7 +38,7 @@ const Movies = ({
         <Link
           href={`/movie/${movie.id}`}
           key={movie.id}
-          className="flex max-h-fit cursor-pointer flex-col rounded-xl p-2 hover:bg-muted/50"
+          className="max-h-fit rounded-lg p-2 hover:bg-muted/50"
         >
           <div className="flex w-full flex-col gap-2">
             {movie.poster_path ? (
