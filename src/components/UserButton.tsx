@@ -62,7 +62,7 @@ const UserButtonContent = () => {
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <User />
-                <Link href="/profile">Profile</Link>
+                <a href="/profile">Profile</a>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={(e) => e.preventDefault()}>
                 <LogOut />
