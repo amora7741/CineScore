@@ -22,7 +22,7 @@ const Login = () => {
       if (!result?.ok) {
         throw new Error(result?.error || "Failed to sign in");
       } else {
-        router.replace("/");
+        router.push("/");
         router.refresh();
       }
       // eslint-disable-next-line

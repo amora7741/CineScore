@@ -6,9 +6,11 @@ import axios from "axios";
 import Link from "next/link";
 
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSubmit = async (data: SignUpCredentials) => {
     try {
@@ -19,6 +21,10 @@ const SignUp = () => {
         title: "Success!",
         description: "You sucessfully registered.",
       });
+
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast({
