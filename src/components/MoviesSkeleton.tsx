@@ -1,6 +1,6 @@
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const MoviesSkeleton = () => {
+const MoviesSkeleton = ({ showFullDetails }: { showFullDetails?: boolean }) => {
   return (
     <ul className="grid grid-cols-2 gap-2 sm:gap-y-4 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-6">
       {Array.from({ length: 20 }, (_, i) => (
@@ -9,8 +9,13 @@ const MoviesSkeleton = () => {
 
           <div className="flex flex-col">
             <Skeleton className="h-5 w-full rounded-none sm:h-6 lg:h-7" />
-            <Skeleton className="h-4 w-full rounded-none sm:h-5 lg:h-6" />
-            <Skeleton className="h-4 w-full rounded-none sm:h-5 lg:h-6" />
+
+            {showFullDetails && (
+              <>
+                <Skeleton className="h-4 w-full rounded-none sm:h-5 lg:h-6" />
+                <Skeleton className="h-4 w-full rounded-none sm:h-5 lg:h-6" />
+              </>
+            )}
           </div>
         </div>
       ))}
