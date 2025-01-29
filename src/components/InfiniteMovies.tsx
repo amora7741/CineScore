@@ -40,23 +40,32 @@ const InfiniteMovies = () => {
 
   if (error) {
     return (
-      <p className="text-center text-xl font-bold">
-        There was an error fetching your favorite movies.
-      </p>
+      <div className="grid place-items-center">
+        <p className="text-center text-xl font-bold sm:text-3xl">
+          There was an error fetching your favorite movies.
+        </p>
+      </div>
     );
   }
 
   if (isEmpty) {
     return (
-      <p className="text-center text-xl font-bold">
-        You haven&apos;t favorited any movies yet!
-      </p>
+      <div className="grid place-items-center">
+        <p className="text-center text-xl font-bold sm:text-3xl">
+          You haven&apos;t favorited any movies yet!
+        </p>
+      </div>
     );
   }
 
   return (
     <div className="space-y-8">
-      <Movies movies={movies} isLoading={isLoading} />
+      <Movies
+        showFullDetails={false}
+        showHeart
+        movies={movies}
+        isLoading={isLoading}
+      />
 
       <div className="flex justify-center">
         {isLoadingMore && <LoaderCircle className="size-8 animate-spin" />}

@@ -36,7 +36,7 @@ const UserButtonContent = () => {
 
   if (loading) {
     return (
-      <Button variant="ghost" className="sm:w-24">
+      <Button disabled variant="ghost" className="sm:w-24">
         <LoaderCircle className="!size-6 animate-spin" />
       </Button>
     );
