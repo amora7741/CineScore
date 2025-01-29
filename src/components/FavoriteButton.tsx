@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import axios from "axios";
 import useSWR from "swr";
 import { fetcher } from "@/helpers/swr-fetcher";
+import { useToast } from "@/hooks/use-toast";
 
 const FavoriteButton = ({
   movieId,
@@ -19,6 +20,7 @@ const FavoriteButton = ({
     `/api/movies/favorite?movieId=${movieId}`,
     fetcher,
   );
+  const { toast } = useToast();
 
   const handleFavoriteToggle = async () => {
     try {
@@ -31,8 +33,19 @@ const FavoriteButton = ({
       });
 
       mutate({ favorited: response.data.favorited });
+
+      toast({
+        title: response.data.favorited
+          ? `${movieTitle} added to favorites.`
+          : `${movieTitle} removed from favorites.`,
+      });
     } catch (error) {
       console.error("Error toggling favorite:", error);
+      toast({
+        title: "Error",
+        description: "Failed to update favorites",
+        variant: "destructive",
+      });
       mutate();
     }
   };
