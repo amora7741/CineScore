@@ -8,7 +8,6 @@ const MovieBanner = async ({
   movieBackdropPath,
   moviePosterPath,
   movieId,
-  movieOverview,
   movieTitle,
   movieGenres,
   extraMovieInfo,
@@ -18,7 +17,6 @@ const MovieBanner = async ({
   movieBackdropPath: string | undefined;
   moviePosterPath: string | undefined;
   movieId: number | undefined;
-  movieOverview: string | undefined;
   movieTitle: string | undefined;
   movieGenres: { id: number; name: string }[];
   extraMovieInfo: ExtraMovieInfo[];
@@ -77,9 +75,7 @@ const MovieBanner = async ({
               <FavoriteButton
                 movieId={movieId}
                 movieTitle={movieTitle}
-                movieBackdropPath={movieBackdropPath}
                 moviePosterPath={moviePosterPath}
-                movieOverview={movieOverview}
               />
             )}
           </div>

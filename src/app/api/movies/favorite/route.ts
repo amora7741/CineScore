@@ -17,8 +17,8 @@ const preparedStatements = {
     LIMIT 1;
   `,
 
-  createMovieInstance: `INSERT INTO movie (id, title, backdrop_path, poster_path, overview) 
-  VALUES ($1, $2, $3, $4, $5) 
+  createMovieInstance: `INSERT INTO movie (id, title, poster_path) 
+  VALUES ($1, $2, $3) 
   ON CONFLICT (id) DO NOTHING;`,
 
   createUserMovieInstance: `INSERT INTO user_movie (user_id, movie_id)
@@ -65,13 +65,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const {
-      movieId,
-      movieTitle,
-      movieBackdropPath,
-      moviePosterPath,
-      movieOverview,
-    } = await request.json();
+    const { movieId, movieTitle, moviePosterPath } = await request.json();
 
     const existingSession = await getServerAuthSession();
 
@@ -99,9 +93,7 @@ export async function POST(request: NextRequest) {
         tx(preparedStatements.createMovieInstance, [
           movieId,
           movieTitle,
-          movieBackdropPath,
           moviePosterPath,
-          movieOverview,
         ]),
         tx(preparedStatements.createUserMovieInstance, [
           existingSession.user.id,

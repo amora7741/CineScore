@@ -9,15 +9,11 @@ import { fetcher } from "@/helpers/swr-fetcher";
 const FavoriteButton = ({
   movieId,
   movieTitle,
-  movieBackdropPath,
   moviePosterPath,
-  movieOverview,
 }: {
   movieId: number | undefined;
   movieTitle: string | undefined;
-  movieBackdropPath: string | undefined;
   moviePosterPath: string | undefined;
-  movieOverview: string | undefined;
 }) => {
   const { data, isLoading, mutate } = useSWR(
     `/api/movies/favorite?movieId=${movieId}`,
@@ -31,9 +27,7 @@ const FavoriteButton = ({
       const response = await axios.post("/api/movies/favorite", {
         movieId,
         movieTitle,
-        movieBackdropPath,
         moviePosterPath,
-        movieOverview,
       });
 
       mutate({ favorited: response.data.favorited });

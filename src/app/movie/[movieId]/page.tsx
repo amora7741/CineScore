@@ -121,7 +121,6 @@ const MoviePage = async ({
         movieBackdropPath={movieData.backdrop_path}
         moviePosterPath={movieData.poster_path}
         movieId={movieData.id}
-        movieOverview={movieData.overview}
         movieTitle={movieData.title}
         movieGenres={movieData.genres}
         extraMovieInfo={extraInfo}
