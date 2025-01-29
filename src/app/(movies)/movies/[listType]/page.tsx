@@ -8,7 +8,7 @@ import useSWR from "swr";
 import { Suspense } from "react";
 import { LoaderCircle } from "lucide-react";
 import { fetcher } from "@/helpers/swr-fetcher";
-import { Movie } from "@/types/Movie";
+import { MovieList } from "@/types/Movie";
 import { isOfTypeListType } from "@/helpers/check-type";
 import ListTypeSelector from "@/components/ListTypeSelector";
 
@@ -20,12 +20,10 @@ const MoviePageContent = () => {
   const listType: ListType = isOfTypeListType(listParam)
     ? listParam
     : "popular";
-  const page = Math.max(
-    1,
-    Math.min(MAX_PAGES, Number(searchParams.get("page")) || 1),
-  );
 
-  const { data: movies, isLoading } = useSWR<Movie[]>(
+  const page = Math.max(1, Number(searchParams.get("page")) || 1);
+
+  const { data: movieData, isLoading } = useSWR<MovieList>(
     `/api/movies?listType=${listType}&page=${page}`,
     fetcher,
     {
@@ -36,6 +34,8 @@ const MoviePageContent = () => {
       refreshInterval: 300000,
     },
   );
+
+  const maxPages = Math.min(movieData?.total_pages || MAX_PAGES, MAX_PAGES);
 
   return (
     <main className="relative mx-auto grid w-full max-w-screen-2xl grid-rows-[auto_1fr_auto] gap-6 p-4 py-8 sm:p-8">
@@ -51,11 +51,11 @@ const MoviePageContent = () => {
         <ListTypeSelector currentType={listType} />
       </div>
 
-      <Movies movies={movies} isLoading={isLoading} />
+      <Movies movies={movieData?.results} isLoading={isLoading} />
 
       <PageRouter
         page={page}
-        maxPages={MAX_PAGES}
+        maxPages={maxPages}
         hrefPath={`/movies/${listType}`}
       />
     </main>

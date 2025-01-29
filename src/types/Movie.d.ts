@@ -24,6 +24,13 @@ type SearchMovie = {
   total_results: number;
 };
 
+type MovieList = SearchMovie & {
+  dates?: {
+    maximum: string;
+    minimum: string;
+  };
+};
+
 type ExpandedMovie = Movie & {
   belongs_to_collection?: string;
   budget?: number;

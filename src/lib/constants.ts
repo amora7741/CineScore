@@ -1,1 +1,1 @@
-export const MAX_PAGES = 50;
+export const MAX_PAGES = 100;

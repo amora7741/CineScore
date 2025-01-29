@@ -19,7 +19,7 @@ export const fetchMovies = async (page: number, listType: ListType) => {
       options,
     );
 
-    return data.results;
+    return data;
   } catch (error) {
     return `Error: ${error}`;
   }
