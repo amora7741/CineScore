@@ -1,32 +1,21 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
-
-import useSWR from "swr";
-import { Suspense } from "react";
-import { LoaderCircle } from "lucide-react";
-import { fetcher } from "@/helpers/swr-fetcher";
+import { MAX_PAGES } from "@/lib/constants";
 import Movies from "@/components/Movies";
 import PageRouter from "@/components/PageRouter";
 import { SearchMovie } from "@/types/Movie";
+import { fetchMoviesByQuery } from "@/helpers/fetch-movies";
 
-const SearchPageContent = () => {
-  const searchParams = useSearchParams();
+const SearchPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}) => {
+  const { q: queryParam } = await searchParams;
+  const { page: pageParam } = await searchParams;
 
-  const movieQuery = decodeURIComponent(searchParams.get("q") ?? "");
-  const page = Math.max(1, Number(searchParams.get("page")) || 1);
+  const movieQuery = decodeURIComponent(queryParam ?? "");
+  const page = Math.max(1, Math.min(MAX_PAGES, Number(pageParam) || 1));
 
-  const { data: movieData, isLoading } = useSWR<SearchMovie>(
-    movieQuery ? `/api/movies/search?query=${movieQuery}&page=${page}` : null,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: true,
-      dedupingInterval: 60000,
-      keepPreviousData: true,
-      refreshInterval: 300000,
-    },
-  );
+  const movieData: SearchMovie = await fetchMoviesByQuery(movieQuery, page);
 
   if (!movieQuery) {
     return (
@@ -42,29 +31,15 @@ const SearchPageContent = () => {
         Search results for <span className="font-bold">{movieQuery}</span>
       </p>
 
-      <Movies movies={movieData?.results} isLoading={isLoading} />
+      <Movies movies={movieData.results} isLoading={false} />
 
       <PageRouter
         page={page}
         hrefPath="/search"
-        maxPages={movieData?.total_pages || 1}
+        maxPages={movieData.total_pages || 1}
         additionalQuery={{ q: movieQuery }}
       />
     </main>
-  );
-};
-
-const SearchPage = () => {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center">
-          <LoaderCircle className="size-16 animate-spin" />
-        </div>
-      }
-    >
-      <SearchPageContent />
-    </Suspense>
   );
 };
 
