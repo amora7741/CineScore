@@ -6,6 +6,30 @@ import ListTypeSelector from "@/components/ListTypeSelector";
 import { fetchMovies } from "@/helpers/fetch-movies";
 import { MovieList } from "@/types/Movie";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { listType: string };
+}) {
+  const { listType: listParam } = params;
+
+  const listType: ListType = isOfTypeListType(listParam)
+    ? listParam
+    : "popular";
+
+  const title = `${
+    listType === "now_playing"
+      ? "Now Playing"
+      : listType === "top_rated"
+        ? "Top Rated"
+        : listType.charAt(0).toUpperCase() + listType.slice(1)
+  } Movies - CineScore`;
+
+  return {
+    title,
+  };
+}
+
 const MoviesPage = async ({
   params,
   searchParams,

@@ -1,6 +1,12 @@
 import InfiniteMovies from "@/components/InfiniteMovies";
 import { getServerAuthSession } from "@/lib/auth";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "User Profile - CineScore",
+  description: "User profile for CineScore, view your favorite movies!",
+};
 
 const Profile = async () => {
   const session = await getServerAuthSession();

@@ -28,6 +28,78 @@ const convertRuntime = (runtime: number): string => {
 const formatCurrency = (value?: number) =>
   value ? `$${value.toLocaleString()}` : "N/A";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ movieId: string }>;
+}) {
+  const { movieId } = await params;
+
+  const [movieData, movieCredits]: [ExpandedMovie, MovieCredits] =
+    await Promise.all([fetchMovieByID(movieId), fetchMovieCredits(movieId)]);
+
+  if (!movieData.id) {
+    return {
+      title: "Movie Not Found - CineScore",
+      description: "The requested movie could not be found.",
+    };
+  }
+
+  const directors = movieCredits.crew
+    .filter((person: CrewMember) => person.job === "Director")
+    .map((director) => director.name)
+    .join(", ");
+
+  const releaseYear = movieData.release_date
+    ? new Date(movieData.release_date).getFullYear()
+    : undefined;
+
+  const genreNames = movieData.genres?.map((genre) => genre.name) || [];
+
+  return {
+    title: movieData.title
+      ? `${movieData.title}${releaseYear ? ` (${releaseYear})` : ""} - CineScore`
+      : "Movie Details - CineScore",
+    description: movieData.overview || undefined,
+    keywords: [
+      "movie",
+      "film",
+      "cinema",
+      movieData.title,
+      ...genreNames,
+      directors,
+      releaseYear?.toString(),
+    ].filter((keyword): keyword is string => Boolean(keyword)),
+    openGraph: {
+      title: movieData.title || "Movie Details",
+      description: movieData.overview || undefined,
+      type: "website",
+      images: movieData.poster_path
+        ? [
+            {
+              url: `https://image.tmdb.org/t/p/w500${movieData.poster_path}`,
+              width: 500,
+              height: 750,
+              alt: `${movieData.title} poster`,
+            },
+          ]
+        : undefined,
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: movieData.title || "Movie Details",
+      description: movieData.overview || undefined,
+      images: movieData.poster_path
+        ? [`https://image.tmdb.org/t/p/w500${movieData.poster_path}`]
+        : undefined,
+    },
+    alternates: {
+      canonical: `/movie/${movieId}`,
+    },
+  };
+}
+
 const MoviePage = async ({
   params,
 }: {

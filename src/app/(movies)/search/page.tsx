@@ -4,6 +4,21 @@ import PageRouter from "@/components/PageRouter";
 import { SearchMovie } from "@/types/Movie";
 import { fetchMoviesByQuery } from "@/helpers/fetch-movies";
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const { q: queryParam } = searchParams;
+  const movieQuery = decodeURIComponent(queryParam ?? "");
+
+  return {
+    title: movieQuery
+      ? `Search results for ${movieQuery} - CineScore`
+      : "Search - CineScore",
+  };
+}
+
 const SearchPage = async ({
   searchParams,
 }: {
