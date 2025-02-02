@@ -74,7 +74,7 @@ const UserButtonContent = () => {
       ) : (
         <Button variant="ghost" className="text-lg sm:w-24">
           <Link href="/login">
-            <span className="hidden sm:flex">Sign In</span>
+            <span className="hidden sm:flex">Log In</span>
             <User className="!size-6 stroke-[3] sm:hidden" />
           </Link>
         </Button>

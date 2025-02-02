@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { LoaderCircle, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 const SearchBar = () => {
   const router = useRouter();
   const [movieQuery, setMovieQuery] = useState<string>("");
+  const [isLoading, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,9 +28,12 @@ const SearchBar = () => {
     if (!movieQuery.trim()) return;
 
     const encodedQuery = encodeURIComponent(movieQuery.trim());
-    router.push(`/search?q=${encodedQuery}`);
 
-    setOpen(false);
+    startTransition(() => {
+      router.push(`/search?q=${encodedQuery}`);
+
+      setOpen(false);
+    });
   };
 
   return (
@@ -70,11 +74,16 @@ const SearchBar = () => {
                 className="rounded-none border-x-0 border-b-2 border-t-0 border-b-gray-500 bg-transparent py-8 text-2xl font-semibold focus-visible:border-b-black dark:focus-visible:border-b-white sm:text-3xl md:text-5xl"
               />
               <Button
+                disabled={isLoading}
                 className="absolute right-0 top-1/4"
                 variant="ghost"
                 type="submit"
               >
-                <Search className="!size-6 stroke-[3]" />
+                {isLoading ? (
+                  <LoaderCircle className="!size-6 animate-spin stroke-[3]" />
+                ) : (
+                  <Search className="!size-6 stroke-[3]" />
+                )}
               </Button>
             </div>
           </form>
