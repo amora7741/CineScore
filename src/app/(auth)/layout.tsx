@@ -11,7 +11,7 @@ export default function AuthLayout({
       <div className="relative hidden size-full overflow-hidden lg:flex">
         <Image
           priority
-          src="/movies.png"
+          src="/movies.webp"
           alt="Background image"
           width={500}
           height={500}
@@ -25,7 +25,7 @@ export default function AuthLayout({
       <div className="relative size-full overflow-hidden shadow-lg">
         <Image
           priority
-          src="/movies.png"
+          src="/movies.webp"
           alt="Background image"
           width={500}
           height={500}

@@ -6,7 +6,7 @@ export default async function Home() {
   return (
     <main className="relative overflow-hidden">
       <Image
-        src="/movies.png"
+        src="/movies.webp"
         alt="Background image"
         fill
         className="absolute -z-50 scale-105 object-cover"
